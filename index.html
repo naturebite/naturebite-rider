@@ -1,0 +1,4623 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#2E7D32">
+<title>NatureBite Rider</title>
+
+<style>
+:root{
+  --green:#2E7D32;
+  --sage:#A5C18E;
+  --cream:#F5F2E8;
+  --brown:#5D4037;
+  --text:#243026;
+  --muted:#718071;
+  --line:#e4e8df;
+  --danger:#c62828;
+  --shadow:0 8px 28px rgba(45,72,45,.10)
+}
+
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:#f7f8f4;
+  color:var(--text)
+}
+
+button,
+input,
+select{
+  font:inherit
+}
+
+button{
+  cursor:pointer
+}
+
+.hidden{
+  display:none!important
+}
+
+/* ================= LOGIN ================= */
+
+#login{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:linear-gradient(135deg,var(--cream),#edf3e8)
+}
+
+.login-card{
+  width:min(430px,100%);
+  background:#fff;
+  border-radius:26px;
+  padding:28px;
+  box-shadow:var(--shadow)
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:22px
+}
+
+.logo-mark{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  background:var(--green);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:27px;
+  font-weight:900
+}
+
+.logo h1{
+  margin:0;
+  font-size:24px
+}
+
+.logo p{
+  margin:3px 0;
+  color:var(--muted);
+  font-size:13px
+}
+
+label{
+  display:block;
+  margin:15px 0 7px;
+  font-size:13px;
+  font-weight:800
+}
+
+input,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 13px;
+  background:#fff;
+  outline:0
+}
+
+input:focus,
+select:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(46,125,50,.08)
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  font-weight:800
+}
+
+.primary{
+  background:var(--green);
+  color:#fff
+}
+
+.secondary{
+  background:#eef4eb;
+  color:var(--green)
+}
+
+.danger{
+  background:#fdecec;
+  color:var(--danger)
+}
+
+.full{
+  width:100%
+}
+
+.small{
+  font-size:12px
+}
+
+.muted{
+  color:var(--muted)
+}
+
+.note{
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:#fff8df;
+  color:#765a00;
+  font-size:12px;
+  line-height:1.55
+}
+
+/* ================= APP ================= */
+
+#app{
+  min-height:100vh
+}
+
+.shell{
+  display:flex;
+  min-height:100vh
+}
+
+.sidebar{
+  width:245px;
+  background:#173f20;
+  color:#fff;
+  padding:18px;
+  position:fixed;
+  inset:0 auto 0 0
+}
+
+.side-brand{
+  font-weight:900;
+  font-size:21px;
+  padding:8px 8px 20px
+}
+
+.nav button{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:#dbe9dc;
+  padding:12px;
+  border-radius:12px;
+  margin:3px 0;
+  font-weight:700
+}
+
+.nav button:hover,
+.nav button.active{
+  background:rgba(255,255,255,.12);
+  color:#fff
+}
+
+.main{
+  margin-left:245px;
+  width:calc(100% - 245px);
+  padding:20px 24px 90px
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px
+}
+
+.topbar h2{
+  margin:0;
+  font-size:23px
+}
+
+.user{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:var(--sage);
+  color:#214523;
+  display:grid;
+  place-items:center;
+  font-weight:900
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px;
+  box-shadow:0 3px 15px rgba(0,0,0,.03)
+}
+
+.stat .num{
+  font-size:26px;
+  font-weight:900;
+  margin-top:6px
+}
+
+.section{
+  margin-top:18px
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px
+}
+
+.section-head h3{
+  margin:0
+}
+
+.cards{
+  display:grid;
+  gap:12px
+}
+
+.order-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px;
+  background:#fff
+}
+
+.order-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px
+}
+
+.order-title{
+  font-weight:900
+}
+
+.pill{
+  display:inline-block;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:800;
+  background:#eef2ee
+}
+
+.pill.green{
+  background:#e4f2e5;
+  color:#256329
+}
+
+.pill.orange{
+  background:#fff0d8;
+  color:#915c00
+}
+
+.pill.red{
+  background:#fde8e8;
+  color:#a62222
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:9px 0;
+  border-bottom:1px solid #f0f2ee
+}
+
+.row:last-child{
+  border-bottom:0
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:14px
+}
+
+.empty{
+  padding:28px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed #ccd5c8;
+  border-radius:14px
+}
+
+table{
+  width:100%;
+  border-collapse:collapse
+}
+
+th,
+td{
+  text-align:left;
+  padding:11px 8px;
+  border-bottom:1px solid var(--line);
+  font-size:13px
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+
+.map-btn{
+  display:inline-block;
+  text-decoration:none;
+  background:#edf4ed;
+  color:var(--green);
+  padding:10px 12px;
+  border-radius:10px;
+  font-weight:800
+}
+
+.money-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid var(--line)
+}
+
+.timeline{
+  border-left:3px solid var(--sage);
+  padding-left:16px;
+  margin:10px 0
+}
+
+.timeline-item{
+  margin:0 0 15px;
+  position:relative
+}
+
+.timeline-item:before{
+  content:"";
+  position:absolute;
+  left:-24px;
+  top:4px;
+  width:9px;
+  height:9px;
+  background:var(--green);
+  border-radius:50%
+}
+
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:20px;
+  background:#173f20;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  z-index:99;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.25s;
+  max-width:360px
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0)
+}
+
+.mobilebar{
+  display:none
+}
+
+.status-actions .btn{
+  min-width:180px
+}
+
+hr{
+  border:0;
+  border-top:1px solid var(--line);
+  margin:18px 0
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .sidebar{
+    display:none
+  }
+
+  .main{
+    margin:0;
+    width:100%;
+    padding:15px 15px 90px
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr
+  }
+
+  .mobilebar{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    left:0;
+    right:0;
+    bottom:0;
+    background:#fff;
+    border-top:1px solid var(--line);
+    z-index:50;
+    padding:6px 3px
+  }
+
+  .mobilebar button{
+    border:0;
+    background:#fff;
+    color:#667166;
+    font-size:11px;
+    padding:7px 2px
+  }
+
+  .mobilebar button.active{
+    color:var(--green);
+    font-weight:900
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    background:#f7f8f4;
+    padding:6px 0;
+    z-index:10
+  }
+}
+
+@media(max-width:520px){
+
+  .grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .stat .num{
+    font-size:21px
+  }
+
+  .topbar h2{
+    font-size:19px
+  }
+
+  .login-card{
+    padding:22px
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login">
+
+  <div class="login-card">
+
+    <div class="logo">
+
+      <div class="logo-mark">
+        N
+      </div>
+
+      <div>
+        <h1>NatureBite Rider</h1>
+        <p>Personal Parcel Delivery</p>
+      </div>
+
+    </div>
+
+    <label>
+      Bangladesh Mobile Number
+    </label>
+
+    <input
+      id="loginPhone"
+      inputmode="numeric"
+      maxlength="11"
+      placeholder="01XXXXXXXXX"
+      autocomplete="tel"
+    >
+
+    <label>
+      Password
+    </label>
+
+    <input
+      id="loginPass"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button
+      id="loginBtn"
+      class="btn primary full"
+      style="margin-top:18px"
+      onclick="login()"
+    >
+      Login
+    </button>
+
+    <button
+      class="btn secondary full"
+      style="margin-top:8px"
+      onclick="forgot()"
+    >
+      Forgot Password
+    </button>
+
+    <div class="note">
+
+      Firebase Authentication দিয়ে secure password login চলছে।
+
+      Rider শুধু mobile number + password ব্যবহার করবে।
+
+      Password Firestore-এ রাখা হয় না।
+
+      OTP/SMS এখন প্রয়োজন নেই।
+
+      পরে OTP চালু করলে first-time verification flow যুক্ত করা যাবে।
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= MAIN APP ================= -->
+
+<section id="app" class="hidden">
+
+<div class="shell">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+  <div class="side-brand">
+
+    🌿 NatureBite
+
+    <br>
+
+    <span
+      style="
+      font-size:12px;
+      font-weight:500;
+      color:#b8cfba
+      "
+    >
+      Rider Panel
+    </span>
+
+  </div>
+
+  <div class="nav">
+
+    <button
+      class="active"
+      onclick="showPage('dashboard',this)"
+    >
+      🏠 Dashboard
+    </button>
+
+    <button
+      onclick="showPage('deliveries',this)"
+    >
+      📦 Deliveries
+    </button>
+
+    <button
+      onclick="showPage('wallet',this)"
+    >
+      💰 Wallet
+    </button>
+
+    <button
+      onclick="showPage('history',this)"
+    >
+      🕘 History
+    </button>
+
+    <button
+      onclick="showPage('notifications',this)"
+    >
+      🔔 Notifications
+    </button>
+
+    <button
+      onclick="showPage('profile',this)"
+    >
+      👤 Profile
+    </button>
+
+    <button
+      onclick="logout()"
+    >
+      ↩ Logout
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <h2 id="pageTitle">
+    Rider Dashboard
+  </h2>
+
+  <div class="user">
+
+    <div>
+
+      <b id="topName">
+        Rider
+      </b>
+
+      <div
+        class="muted small"
+        id="topId"
+      >
+        Rider ID: —
+      </div>
+
+    </div>
+
+    <div
+      class="avatar"
+      id="topAvatar"
+    >
+      R
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section
+  id="dashboard"
+  class="page"
+>
+
+  <div class="grid">
+
+    <div class="card stat">
+
+      <div class="muted">
+        Active Deliveries
+      </div>
+
+      <div
+        class="num"
+        id="statActive"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="muted">
+        Out for Delivery
+      </div>
+
+      <div
+        class="num"
+        id="statOut"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="muted">
+        Total Earnings
+      </div>
+
+      <div
+        class="num"
+        id="statEarn"
+      >
+        ৳0
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="muted">
+        COD Amount
+      </div>
+
+      <div
+        class="num"
+        id="statCod"
+      >
+        ৳0
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section card">
+
+    <div class="section-head">
+
+      <h3>
+        Assigned Deliveries
+      </h3>
+
+      <button
+        class="btn secondary"
+        onclick="showPage('deliveries')"
+      >
+        View all
+      </button>
+
+    </div>
+
+    <div
+      id="dashboardOrders"
+      class="cards"
+    ></div>
+
+  </div>
+
+
+  <div class="section card">
+
+    <h3>
+      Quick Summary
+    </h3>
+
+    <div class="money-row">
+
+      <span>
+        Current Balance
+      </span>
+
+      <b id="sumBalance">
+        ৳0
+      </b>
+
+    </div>
+
+
+    <div class="money-row">
+
+      <span>
+        Pending Settlement
+      </span>
+
+      <b id="sumPending">
+        ৳0
+      </b>
+
+    </div>
+
+
+    <div class="money-row">
+
+      <span>
+        Delivered Orders
+      </span>
+
+      <b id="sumDelivered">
+        0
+      </b>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= DELIVERIES ================= -->
+
+<section
+  id="deliveries"
+  class="page hidden"
+>
+
+  <div class="card">
+
+    <div class="section-head">
+
+      <h3>
+        Assigned Deliveries
+      </h3>
+
+      <button
+        class="btn secondary"
+        onclick="refreshOrders()"
+      >
+        Refresh
+      </button>
+
+    </div>
+
+    <div
+      id="deliveryList"
+      class="cards"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= DETAILS ================= -->
+
+<section
+  id="detail"
+  class="page hidden"
+>
+
+  <div class="section-head">
+
+    <button
+      class="btn secondary"
+      onclick="showPage('deliveries')"
+    >
+      ← Back
+    </button>
+
+  </div>
+
+  <div id="detailContent"></div>
+
+</section>
+
+
+<!-- ================= WALLET ================= -->
+
+<section
+  id="wallet"
+  class="page hidden"
+>
+
+  <div class="grid">
+
+    <div class="card stat">
+
+      <div class="muted">
+        Current Balance
+      </div>
+
+      <div
+        class="num"
+        id="wBalance"
+      >
+        ৳0
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="muted">
+        COD Collected
+      </div>
+
+      <div
+        class="num"
+        id="wCod"
+      >
+        ৳0
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="muted">
+        Pending Settlement
+      </div>
+
+      <div
+        class="num"
+        id="wPending"
+      >
+        ৳0
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="muted">
+        Total Earnings
+      </div>
+
+      <div
+        class="num"
+        id="wEarn"
+      >
+        ৳0
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section card">
+
+    <h3>
+      Settlement
+    </h3>
+
+    <div class="money-row">
+
+      <span>
+        Approved Settlement
+      </span>
+
+      <b id="wApproved">
+        ৳0
+      </b>
+
+    </div>
+
+
+    <div class="money-row">
+
+      <span>
+        Paid/Transferred
+      </span>
+
+      <b id="wPaid">
+        ৳0
+      </b>
+
+    </div>
+
+
+    <div class="money-row">
+
+      <span>
+        Salary Pending
+      </span>
+
+      <b id="wSalaryPending">
+        ৳0
+      </b>
+
+    </div>
+
+  </div>
+
+
+  <div class="section card">
+
+    <h3>
+      Recent Transactions
+    </h3>
+
+    <div
+      id="transactionList"
+      class="cards"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= HISTORY ================= -->
+
+<section
+  id="history"
+  class="page hidden"
+>
+
+  <div class="card">
+
+    <div class="section-head">
+
+      <h3>
+        Delivery History
+      </h3>
+
+      <select
+        id="historyFilter"
+        onchange="renderHistory()"
+        style="width:auto"
+      >
+
+        <option>
+          All
+        </option>
+
+        <option>
+          Delivered
+        </option>
+
+        <option>
+          Failed
+        </option>
+
+        <option>
+          Cancelled
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div style="overflow:auto">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Order
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th>
+              COD
+            </th>
+
+            <th>
+              Date
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody
+          id="historyBody"
+        ></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= NOTIFICATIONS ================= -->
+
+<section
+  id="notifications"
+  class="page hidden"
+>
+
+  <div class="card">
+
+    <div class="section-head">
+
+      <h3>
+        Notifications
+      </h3>
+
+      <button
+        class="btn secondary"
+        onclick="markAllRead()"
+      >
+        Mark all read
+      </button>
+
+    </div>
+
+    <div
+      id="notificationList"
+      class="cards"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section
+  id="profile"
+  class="page hidden"
+>
+
+  <div class="card">
+
+    <div
+      style="
+      display:flex;
+      align-items:center;
+      gap:15px
+      "
+    >
+
+      <div
+        class="avatar"
+        id="profileAvatar"
+        style="
+        width:65px;
+        height:65px
+        "
+      >
+        R
+      </div>
+
+      <div>
+
+        <h3 id="profileName">
+          Rider
+        </h3>
+
+        <div
+          class="muted"
+          id="profileId"
+        >
+          Rider ID: —
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <label>
+      Name
+    </label>
+
+    <input
+      id="profileNameInput"
+      placeholder="Rider name"
+    >
+
+
+    <label>
+      Phone
+    </label>
+
+    <input
+      id="profilePhone"
+      readonly
+    >
+
+
+    <label>
+      Vehicle Type
+    </label>
+
+    <select
+      id="vehicleType"
+    >
+
+      <option>
+        Bike
+      </option>
+
+      <option>
+        Motorcycle
+      </option>
+
+      <option>
+        Cycle
+      </option>
+
+      <option>
+        Car
+      </option>
+
+    </select>
+
+
+    <label>
+      Vehicle Number
+    </label>
+
+    <input
+      id="vehicleNumber"
+      placeholder="Vehicle number"
+    >
+
+
+    <button
+      class="btn primary full"
+      style="margin-top:15px"
+      onclick="saveProfile()"
+    >
+      Save Changes
+    </button>
+
+
+    <hr>
+
+
+    <div class="muted small">
+
+      Production-এ Firebase Security Rules/Cloud Functions দিয়ে
+      profile, status, wallet এবং settlement permissions enforce করতে হবে।
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- ================= MOBILE BAR ================= -->
+
+<div class="mobilebar">
+
+  <button
+    class="active"
+    onclick="showPage('dashboard',this)"
+  >
+    🏠
+    <br>
+    Home
+  </button>
+
+  <button
+    onclick="showPage('deliveries',this)"
+  >
+    📦
+    <br>
+    Deliveries
+  </button>
+
+  <button
+    onclick="showPage('wallet',this)"
+  >
+    💰
+    <br>
+    Wallet
+  </button>
+
+  <button
+    onclick="showPage('notifications',this)"
+  >
+    🔔
+    <br>
+    Alerts
+  </button>
+
+  <button
+    onclick="showPage('profile',this)"
+  >
+    👤
+    <br>
+    Profile
+  </button>
+
+</div>
+
+</section>
+
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<!-- ================= FIREBASE ================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  query,
+  where,
+  onSnapshot,
+  updateDoc,
+  serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+   ========================================================= */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyAlrkdWd2UMGAp3yZkp0tlhxxXWSCjSvg",
+
+  authDomain:
+  "naturebite-bcdad.firebaseapp.com",
+
+  projectId:
+  "naturebite-bcdad",
+
+  storageBucket:
+  "naturebite-bcdad.firebasestorage.app",
+
+  messagingSenderId:
+  "860834516769",
+
+  appId:
+  "1:860834516769:web:5c2fa96a1de26e337a3860"
+
+};
+
+
+const firebaseApp =
+initializeApp(firebaseConfig);
+
+
+const auth =
+getAuth(firebaseApp);
+
+
+const db =
+getFirestore(firebaseApp);
+
+
+/* =========================================================
+   IMPORTANT
+   Supports both email formats that may already exist:
+   
+   rider.8801700000000@rider.naturebite.app
+   
+   and
+   
+   rider.8801700000000@auth.naturebite.app
+   ========================================================= */
+
+const RIDER_EMAIL_DOMAINS = [
+
+  "rider.naturebite.app",
+
+  "auth.naturebite.app"
+
+];
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let riderId = null;
+
+let riderData = {};
+
+let riderOrders = [];
+
+let selectedOrderId = null;
+
+let currentFirebaseUser = null;
+
+let unsubscribeOrders = null;
+
+let unsubscribeNotifications = null;
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+const $ =
+id => document.getElementById(id);
+
+
+function money(value){
+
+  return Number(value || 0)
+  .toLocaleString("en-BD");
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function toast(message){
+
+  const t =
+  $("toast");
+
+  t.textContent =
+  message;
+
+  t.classList.add("show");
+
+  clearTimeout(
+    window.__toast
+  );
+
+  window.__toast =
+  setTimeout(
+    () => t.classList.remove("show"),
+    3000
+  );
+
+}
+
+
+function initials(name){
+
+  return String(
+    name || "Rider"
+  )
+
+  .trim()
+
+  .split(/\s+/)
+
+  .map(
+    x => x[0]
+  )
+
+  .join("")
+
+  .slice(0,2)
+
+  .toUpperCase()
+
+  || "R";
+
+}
+
+
+/* =========================================================
+   BANGLADESH PHONE NORMALIZATION
+   ========================================================= */
+
+function normalizeBangladeshPhone(value){
+
+  let phone =
+  String(value || "")
+  .trim()
+  .replace(/[\s-]/g,"");
+
+
+  if(
+    /^01\d{9}$/.test(phone)
+  ){
+
+    return "+88" + phone;
+
+  }
+
+
+  if(
+    /^8801\d{9}$/.test(phone)
+  ){
+
+    return "+" + phone;
+
+  }
+
+
+  if(
+    /^\+8801\d{9}$/.test(phone)
+  ){
+
+    return phone;
+
+  }
+
+
+  return null;
+
+}
+
+
+/* =========================================================
+   MOBILE → INTERNAL FIREBASE EMAIL
+   ========================================================= */
+
+function riderAuthEmails(phone){
+
+  const normalized =
+  normalizeBangladeshPhone(phone);
+
+
+  if(!normalized){
+
+    return [];
+
+  }
+
+
+  const phoneNumber =
+  normalized.replace("+","");
+
+
+  return RIDER_EMAIL_DOMAINS.map(
+
+    domain =>
+    "rider."
+    + phoneNumber
+    + "@"
+    + domain
+
+  );
+
+}
+
+
+/* =========================================================
+   FIREBASE ERROR MESSAGE
+   ========================================================= */
+
+function errorText(code){
+
+  const errors = {
+
+    "auth/invalid-credential":
+    "Mobile number বা password ভুল।",
+
+    "auth/invalid-login-credentials":
+    "Mobile number বা password ভুল।",
+
+    "auth/user-not-found":
+    "এই mobile number-এর Rider account পাওয়া যায়নি।",
+
+    "auth/wrong-password":
+    "Password ভুল।",
+
+    "auth/too-many-requests":
+    "অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।",
+
+    "auth/user-disabled":
+    "এই Rider account নিষ্ক্রিয়।",
+
+    "auth/network-request-failed":
+    "Internet connection সমস্যা।",
+
+    "auth/operation-not-allowed":
+    "Firebase Authentication-এ Email/Password Enable করুন।"
+
+  };
+
+
+  return errors[code]
+  ||
+  "Login করা যায়নি। আবার চেষ্টা করুন।";
+
+}
+
+
+/* =========================================================
+   TIMESTAMP
+   ========================================================= */
+
+function timestampMs(value){
+
+  if(!value){
+
+    return 0;
+
+  }
+
+
+  if(
+    typeof value.toMillis === "function"
+  ){
+
+    return value.toMillis();
+
+  }
+
+
+  if(value.seconds){
+
+    return value.seconds * 1000;
+
+  }
+
+
+  const number =
+  new Date(value).getTime();
+
+
+  return Number.isFinite(number)
+  ? number
+  : 0;
+
+}
+
+
+function dateText(value){
+
+  const ms =
+  timestampMs(value);
+
+
+  if(!ms){
+
+    return "—";
+
+  }
+
+
+  return new Date(ms)
+  .toLocaleString("en-BD");
+
+}
+
+
+/* =========================================================
+   STATUS HELPERS
+   ========================================================= */
+
+function isClosed(status){
+
+  return [
+
+    "Delivered",
+    "Failed",
+    "Cancelled"
+
+  ].includes(status);
+
+}
+
+
+function statusClass(status){
+
+  if(
+    status === "Delivered"
+  ){
+
+    return "green";
+
+  }
+
+
+  if(
+    [
+      "Failed",
+      "Cancelled"
+    ].includes(status)
+  ){
+
+    return "red";
+
+  }
+
+
+  if(
+    status === "Out for Delivery"
+  ){
+
+    return "orange";
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =========================================================
+   NORMALIZE FIRESTORE ORDER
+   ========================================================= */
+
+function normalizeOrder(id,data){
+
+  return {
+
+    id,
+
+    status:
+    data.status || "Assigned",
+
+    parcel:
+    data.parcelDescription
+    ||
+    data.parcel
+    ||
+    "Parcel",
+
+    qty:
+    Number(
+      data.parcelQuantity
+      ||
+      data.qty
+      ||
+      1
+    ),
+
+    charge:
+    Number(
+      data.deliveryCharge
+      ||
+      data.charge
+      ||
+      0
+    ),
+
+    cod:
+    Number(
+      data.codAmount
+      ||
+      data.cod
+      ||
+      0
+    ),
+
+    pickup:
+    data.pickupAddress
+    ||
+    data.pickup
+    ||
+    "Pickup address not available",
+
+    delivery:
+    data.deliveryAddress
+    ||
+    data.delivery
+    ||
+    "Delivery address not available",
+
+    customer:
+    data.customerName
+    ||
+    data.customer
+    ||
+    "Customer",
+
+    phone:
+    data.customerContact
+    ||
+    data.phone
+    ||
+    "",
+
+    pickupLat:
+    Number(
+      data.pickupLatitude
+      ??
+      data.pickupLat
+      ??
+      0
+    ),
+
+    pickupLng:
+    Number(
+      data.pickupLongitude
+      ??
+      data.pickupLng
+      ??
+      0
+    ),
+
+    deliveryLat:
+    Number(
+      data.deliveryLatitude
+      ??
+      data.deliveryLat
+      ??
+      0
+    ),
+
+    deliveryLng:
+    Number(
+      data.deliveryLongitude
+      ??
+      data.deliveryLng
+      ??
+      0
+    ),
+
+    riderEarning:
+    Number(
+      data.riderEarning || 0
+    ),
+
+    zoneId:
+    data.zoneId || "",
+
+    createdAt:
+    data.createdAt,
+
+    updatedAt:
+    data.updatedAt,
+
+    acceptedAt:
+    data.acceptedAt,
+
+    arrivedAt:
+    data.arrivedAt,
+
+    pickedUpAt:
+    data.pickedUpAt,
+
+    outForDeliveryAt:
+    data.outForDeliveryAt,
+
+    deliveredAt:
+    data.deliveredAt,
+
+    failedAt:
+    data.failedAt,
+
+    cancelledAt:
+    data.cancelledAt,
+
+    failureReason:
+    data.failureReason || "",
+
+    cancellationReason:
+    data.cancellationReason || "",
+
+    deliveryProofUrl:
+    data.deliveryProofUrl || ""
+
+  };
+
+}
+
+
+/* =========================================================
+   FIND RIDER USING AUTH UID
+   ========================================================= */
+
+async function findRider(uid){
+
+  const q =
+  query(
+
+    collection(
+      db,
+      "riders"
+    ),
+
+    where(
+      "authUid",
+      "==",
+      uid
+    )
+
+  );
+
+
+  const snap =
+  await getDocs(q);
+
+
+  if(
+    snap.empty
+  ){
+
+    return null;
+
+  }
+
+
+  const first =
+  snap.docs[0];
+
+
+  return {
+
+    id:first.id,
+
+    data:first.data()
+
+  };
+
+}
+
+
+/* =========================================================
+   LOAD RIDER PROFILE
+   ========================================================= */
+
+async function loadRiderProfile(){
+
+  try{
+
+    const snap =
+    await getDoc(
+      doc(
+        db,
+        "riders",
+        riderId
+      )
+    );
+
+
+    if(
+      !snap.exists()
+    ){
+
+      toast(
+        "Rider profile পাওয়া যায়নি।"
+      );
+
+      await signOut(auth);
+
+      return false;
+
+    }
+
+
+    const data =
+    snap.data();
+
+
+    if(
+      data.authUid
+      !==
+      currentFirebaseUser.uid
+    ){
+
+      toast(
+        "Rider profile-এর authUid মিলছে না।"
+      );
+
+      await signOut(auth);
+
+      return false;
+
+    }
+
+
+    if(
+      data.riderStatus
+      &&
+      data.riderStatus !== "active"
+    ){
+
+      toast(
+        "এই Rider account inactive।"
+      );
+
+      await signOut(auth);
+
+      return false;
+
+    }
+
+
+    riderData = {
+
+      riderId:snap.id,
+
+      ...data
+
+    };
+
+
+    updateRiderUI();
+
+    updateWalletUI();
+
+    startOrders();
+
+    startNotifications();
+
+    loadTransactions();
+
+
+    $("login")
+    .classList
+    .add("hidden");
+
+
+    $("app")
+    .classList
+    .remove("hidden");
+
+
+    return true;
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      "Rider profile load করা যায়নি।"
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   RIDER UI
+   ========================================================= */
+
+function updateRiderUI(){
+
+  const name =
+  riderData.name
+  ||
+  "Rider";
+
+
+  const id =
+  riderData.riderId
+  ||
+  riderId
+  ||
+  "—";
+
+
+  $("topName")
+  .textContent =
+  name;
+
+
+  $("topId")
+  .textContent =
+  "Rider ID: " + id;
+
+
+  $("topAvatar")
+  .textContent =
+  initials(name);
+
+
+  $("profileName")
+  .textContent =
+  name;
+
+
+  $("profileId")
+  .textContent =
+  "Rider ID: " + id;
+
+
+  $("profileAvatar")
+  .textContent =
+  initials(name);
+
+
+  $("profileNameInput")
+  .value =
+  name;
+
+
+  $("profilePhone")
+  .value =
+  riderData.phone || "—";
+
+
+  $("vehicleType")
+  .value =
+  riderData.vehicleType
+  ||
+  "Bike";
+
+
+  $("vehicleNumber")
+  .value =
+  riderData.vehicleNumber
+  ||
+  "";
+
+}
+
+
+/* =========================================================
+   WALLET UI
+   ========================================================= */
+
+function updateWalletUI(){
+
+  const values = [
+
+    [
+      "wBalance",
+      "currentBalance"
+    ],
+
+    [
+      "wCod",
+      "codCollected"
+    ],
+
+    [
+      "wPending",
+      "pendingSettlement"
+    ],
+
+    [
+      "wEarn",
+      "totalEarnings"
+    ],
+
+    [
+      "wApproved",
+      "approvedSettlement"
+    ],
+
+    [
+      "wPaid",
+      "paidSettlement"
+    ],
+
+    [
+      "wSalaryPending",
+      "salaryPending"
+    ]
+
+  ];
+
+
+  values.forEach(
+
+    item => {
+
+      $(item[0])
+      .textContent =
+      "৳"
+      +
+      money(
+        riderData[item[1]]
+      );
+
+    }
+
+  );
+
+
+  $("sumBalance")
+  .textContent =
+  "৳"
+  +
+  money(
+    riderData.currentBalance
+  );
+
+
+  $("sumPending")
+  .textContent =
+  "৳"
+  +
+  money(
+    riderData.pendingSettlement
+  );
+
+}
+
+
+/* =========================================================
+   FIRESTORE RIDER ORDERS
+   ========================================================= */
+
+function startOrders(){
+
+  if(
+    unsubscribeOrders
+  ){
+
+    unsubscribeOrders();
+
+  }
+
+
+  const q =
+  query(
+
+    collection(
+      db,
+      "rider_orders"
+    ),
+
+    where(
+      "riderId",
+      "==",
+      riderId
+    )
+
+  );
+
+
+  unsubscribeOrders =
+  onSnapshot(
+
+    q,
+
+    snap => {
+
+      riderOrders =
+      snap.docs
+
+      .map(
+        docSnap =>
+        normalizeOrder(
+          docSnap.id,
+          docSnap.data()
+        )
+      )
+
+      .sort(
+
+        (a,b) =>
+        timestampMs(b.updatedAt)
+        -
+        timestampMs(a.updatedAt)
+
+      );
+
+
+      renderOrders();
+
+      renderHistory();
+
+      updateStats();
+
+    },
+
+    error => {
+
+      console.error(error);
+
+      toast(
+        "Orders load failed: "
+        +
+        (error.code || "")
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =========================================================
+   ORDER CARD
+   ========================================================= */
+
+function orderCard(order){
+
+  return `
+
+  <div class="order-card">
+
+    <div class="order-top">
+
+      <div>
+
+        <div class="order-title">
+
+          ${escapeHtml(order.id)}
+
+        </div>
+
+        <div class="muted small">
+
+          ${escapeHtml(order.parcel)}
+          ×
+          ${order.qty}
+
+        </div>
+
+      </div>
+
+
+      <span
+        class="pill ${statusClass(order.status)}"
+      >
+
+        ${escapeHtml(order.status)}
+
+      </span>
+
+    </div>
+
+
+    <div class="row">
+
+      <span>
+        Pickup
+      </span>
+
+      <b>
+        ${escapeHtml(order.pickup)}
+      </b>
+
+    </div>
+
+
+    <div class="row">
+
+      <span>
+        Delivery
+      </span>
+
+      <b>
+        ${escapeHtml(order.delivery)}
+      </b>
+
+    </div>
+
+
+    <div class="row">
+
+      <span>
+        COD
+      </span>
+
+      <b>
+        ৳${money(order.cod)}
+      </b>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn primary"
+        onclick="openDetail('${escapeHtml(order.id)}')"
+      >
+        View Details
+      </button>
+
+
+      ${
+        isClosed(order.status)
+        ?
+
+        ""
+
+        :
+
+        `
+        <button
+          class="btn secondary"
+          onclick="advanceOrder('${escapeHtml(order.id)}')"
+        >
+          Next Status
+        </button>
+        `
+      }
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER ORDERS
+   ========================================================= */
+
+function renderOrders(){
+
+  const html =
+  riderOrders.length
+
+  ?
+
+  riderOrders
+  .map(orderCard)
+  .join("")
+
+  :
+
+  `
+  <div class="empty">
+    কোনো assigned delivery পাওয়া যায়নি।
+  </div>
+  `;
+
+
+  $("dashboardOrders")
+  .innerHTML =
+  html;
+
+
+  $("deliveryList")
+  .innerHTML =
+  html;
+
+}
+
+
+/* =========================================================
+   DASHBOARD STATS
+   ========================================================= */
+
+function updateStats(){
+
+  const active =
+  riderOrders
+  .filter(
+    order =>
+    !isClosed(order.status)
+  )
+  .length;
+
+
+  const out =
+  riderOrders
+  .filter(
+    order =>
+    order.status
+    ===
+    "Out for Delivery"
+  )
+  .length;
+
+
+  const delivered =
+  riderOrders
+  .filter(
+    order =>
+    order.status
+    ===
+    "Delivered"
+  )
+  .length;
+
+
+  const cod =
+  riderOrders
+  .reduce(
+    (sum,order) =>
+    sum + order.cod,
+    0
+  );
+
+
+  $("statActive")
+  .textContent =
+  active;
+
+
+  $("statOut")
+  .textContent =
+  out;
+
+
+  $("statEarn")
+  .textContent =
+  "৳"
+  +
+  money(
+    riderData.totalEarnings
+  );
+
+
+  $("statCod")
+  .textContent =
+  "৳"
+  +
+  money(cod);
+
+
+  $("sumDelivered")
+  .textContent =
+  delivered;
+
+}
+
+
+/* =========================================================
+   GET ORDER
+   ========================================================= */
+
+function getOrder(id){
+
+  return riderOrders.find(
+    order =>
+    order.id === id
+  );
+
+}
+
+
+/* =========================================================
+   OPEN ORDER DETAILS
+   ========================================================= */
+
+function openDetail(id){
+
+  const order =
+  getOrder(id);
+
+
+  if(!order){
+
+    toast(
+      "Delivery not found"
+    );
+
+    return;
+
+  }
+
+
+  selectedOrderId =
+  id;
+
+
+  showPage(
+    "detail"
+  );
+
+
+  const contactAvailable =
+  !isClosed(order.status)
+  &&
+  order.phone;
+
+
+  let navigation = "";
+
+
+  if(
+    order.deliveryLat
+    &&
+    order.deliveryLng
+  ){
+
+    navigation = `
+
+      <a
+        class="map-btn"
+        target="_blank"
+        rel="noopener"
+        href="
+        https://www.google.com/maps/dir/?api=1&destination=
+        ${order.deliveryLat},
+        ${order.deliveryLng}
+        "
+      >
+        🧭 Navigate
+      </a>
+
+    `;
+
+  }
+
+
+  $("detailContent")
+  .innerHTML = `
+
+  <div class="detail-grid">
+
+
+    <div class="card">
+
+      <h3>
+        Delivery
+      </h3>
+
+
+      <div class="row">
+
+        <span>
+          Order
+        </span>
+
+        <b>
+          ${escapeHtml(order.id)}
+        </b>
+
+      </div>
+
+
+      <div class="row">
+
+        <span>
+          Status
+        </span>
+
+        <b>
+          ${escapeHtml(order.status)}
+        </b>
+
+      </div>
+
+
+      <div class="row">
+
+        <span>
+          Parcel
+        </span>
+
+        <b>
+          ${escapeHtml(order.parcel)}
+        </b>
+
+      </div>
+
+
+      <div class="row">
+
+        <span>
+          Quantity
+        </span>
+
+        <b>
+          ${order.qty}
+        </b>
+
+      </div>
+
+
+      <div class="row">
+
+        <span>
+          Delivery Charge
+        </span>
+
+        <b>
+          ৳${money(order.charge)}
+        </b>
+
+      </div>
+
+
+      <div class="row">
+
+        <span>
+          COD
+        </span>
+
+        <b>
+          ৳${money(order.cod)}
+        </b>
+
+      </div>
+
+
+      <div class="actions">
+
+        ${navigation}
+
+
+        ${
+          contactAvailable
+
+          ?
+
+          `
+          <a
+            class="map-btn"
+            href="tel:${escapeHtml(order.phone)}"
+          >
+            📞 Contact Customer
+          </a>
+          `
+
+          :
+
+          ""
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        Pickup
+      </h3>
+
+      <p>
+        ${escapeHtml(order.pickup)}
+      </p>
+
+
+      <h3>
+        Customer Delivery
+      </h3>
+
+      <p>
+        ${escapeHtml(order.delivery)}
+      </p>
+
+
+      <p class="muted">
+
+        ${escapeHtml(order.customer)}
+
+      </p>
+
+
+      ${
+        contactAvailable
+
+        ?
+
+        `
+        <p>
+          <b>
+            ${escapeHtml(order.phone)}
+          </b>
+        </p>
+        `
+
+        :
+
+        `
+        <p class="muted">
+          Customer contact is hidden after delivery is closed.
+        </p>
+        `
+
+      }
+
+    </div>
+
+  </div>
+
+
+  <div class="section card">
+
+    <h3>
+      Status Control
+    </h3>
+
+    <div class="muted small">
+
+      Assigned
+      →
+      Accepted
+      →
+      Arrived at Pickup
+      →
+      Picked Up
+      →
+      Out for Delivery
+      →
+      Delivered
+
+    </div>
+
+
+    <div class="actions status-actions">
+
+      ${statusButton(order)}
+
+    </div>
+
+  </div>
+
+
+  <div class="section card">
+
+    <h3>
+      Timeline
+    </h3>
+
+    ${timeline(order)}
+
+  </div>
+
+
+  ${
+    order.status === "Cancelled"
+
+    ?
+
+    `
+    <div class="section card">
+
+      <h3>
+        Parcel Return / Handover
+      </h3>
+
+      <p>
+        Cancelled parcel company/authorized location-এ handover করতে হবে।
+      </p>
+
+      <button
+        class="btn secondary"
+        onclick="openHandover('${escapeHtml(order.id)}')"
+      >
+        Submit Handover Proof
+      </button>
+
+    </div>
+    `
+
+    :
+
+    ""
+
+  }
+
+  `;
+
+}
+
+
+/* =========================================================
+   NEXT STATUS
+   ========================================================= */
+
+function nextStatus(status){
+
+  return {
+
+    "Assigned":
+    "Accepted",
+
+    "Accepted":
+    "Arrived at Pickup",
+
+    "Arrived at Pickup":
+    "Picked Up",
+
+    "Picked Up":
+    "Out for Delivery",
+
+    "Out for Delivery":
+    "Delivered"
+
+  }[status]
+  ||
+  "";
+
+}
+
+
+/* =========================================================
+   STATUS BUTTON
+   ========================================================= */
+
+function statusButton(order){
+
+  if(
+    isClosed(order.status)
+  ){
+
+    return `
+
+      <span
+        class="pill ${statusClass(order.status)}"
+      >
+        No further status action
+      </span>
+
+    `;
+
+  }
+
+
+  return `
+
+    <button
+      class="btn primary"
+      onclick="advanceOrder('${escapeHtml(order.id)}')"
+    >
+
+      Update to:
+      ${escapeHtml(nextStatus(order.status))}
+
+    </button>
+
+
+    <button
+      class="btn danger"
+      onclick="failOrder('${escapeHtml(order.id)}')"
+    >
+
+      Mark Failed
+
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+function timeline(order){
+
+  const items = [
+
+    [
+      "Assigned",
+      order.createdAt
+    ],
+
+    [
+      "Accepted",
+      order.acceptedAt
+    ],
+
+    [
+      "Arrived at Pickup",
+      order.arrivedAt
+    ],
+
+    [
+      "Picked Up",
+      order.pickedUpAt
+    ],
+
+    [
+      "Out for Delivery",
+      order.outForDeliveryAt
+    ],
+
+    [
+      "Delivered",
+      order.deliveredAt
+    ],
+
+    [
+      "Failed",
+      order.failedAt
+    ],
+
+    [
+      "Cancelled",
+      order.cancelledAt
+    ]
+
+  ];
+
+
+  return `
+
+  <div class="timeline">
+
+    ${
+      items
+      .filter(
+        item =>
+        item[1]
+      )
+
+      .map(
+
+        item => `
+
+        <div class="timeline-item">
+
+          <b>
+            ${item[0]}
+          </b>
+
+          <div class="muted small">
+
+            ${dateText(item[1])}
+
+          </div>
+
+        </div>
+
+        `
+
+      )
+
+      .join("")
+
+      ||
+
+      `
+      <div class="muted">
+        No timeline timestamps yet.
+      </div>
+      `
+
+    }
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ADVANCE STATUS
+   ========================================================= */
+
+async function advanceOrder(id){
+
+  const order =
+  getOrder(id);
+
+
+  if(!order){
+
+    return;
+
+  }
+
+
+  const next =
+  nextStatus(
+    order.status
+  );
+
+
+  if(!next){
+
+    toast(
+      "No next status"
+    );
+
+    return;
+
+  }
+
+
+  const timestampField = {
+
+    "Accepted":
+    "acceptedAt",
+
+    "Arrived at Pickup":
+    "arrivedAt",
+
+    "Picked Up":
+    "pickedUpAt",
+
+    "Out for Delivery":
+    "outForDeliveryAt",
+
+    "Delivered":
+    "deliveredAt"
+
+  }[next];
+
+
+  if(!timestampField){
+
+    toast(
+      "Invalid status"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "rider_orders",
+        id
+      ),
+
+      {
+
+        status:
+        next,
+
+        [timestampField]:
+        serverTimestamp(),
+
+        updatedAt:
+        serverTimestamp()
+
+      }
+
+    );
+
+
+    toast(
+      "Status updated: "
+      +
+      next
+    );
+
+
+    if(
+      selectedOrderId === id
+    ){
+
+      setTimeout(
+
+        () =>
+        openDetail(id),
+
+        200
+
+      );
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      "Status update failed: "
+      +
+      (
+        error.code
+        ||
+        "permission error"
+      )
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   FAILED DELIVERY
+   ========================================================= */
+
+async function failOrder(id){
+
+  const order =
+  getOrder(id);
+
+
+  if(
+    !order
+    ||
+    isClosed(order.status)
+  ){
+
+    return;
+
+  }
+
+
+  const reason =
+  prompt(
+    "Failure reason লিখুন:"
+  );
+
+
+  if(!reason){
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "rider_orders",
+        id
+      ),
+
+      {
+
+        status:
+        "Failed",
+
+        failureReason:
+        reason,
+
+        failedAt:
+        serverTimestamp(),
+
+        updatedAt:
+        serverTimestamp()
+
+      }
+
+    );
+
+
+    toast(
+      "Delivery marked Failed"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      "Failed status update হয়নি: "
+      +
+      (
+        error.code
+        ||
+        "permission error"
+      )
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+function renderHistory(){
+
+  const filter =
+  $("historyFilter").value;
+
+
+  const rows =
+  riderOrders
+
+  .filter(
+
+    order =>
+    filter === "All"
+    ||
+    order.status === filter
+
+  )
+
+  .map(
+
+    order => `
+
+    <tr>
+
+      <td>
+        ${escapeHtml(order.id)}
+      </td>
+
+      <td>
+
+        <span
+          class="pill ${statusClass(order.status)}"
+        >
+          ${escapeHtml(order.status)}
+        </span>
+
+      </td>
+
+      <td>
+        ৳${money(order.cod)}
+      </td>
+
+      <td>
+        ${dateText(
+          order.updatedAt
+          ||
+          order.createdAt
+        )}
+      </td>
+
+    </tr>
+
+    `
+
+  )
+
+  .join("");
+
+
+  $("historyBody")
+  .innerHTML =
+
+  rows
+
+  ||
+
+  `
+  <tr>
+
+    <td
+      colspan="4"
+      style="
+      text-align:center;
+      color:#718071
+      "
+    >
+      No history
+    </td>
+
+  </tr>
+  `;
+
+}
+
+
+/* =========================================================
+   TRANSACTIONS
+   ========================================================= */
+
+async function loadTransactions(){
+
+  try{
+
+    const q =
+    query(
+
+      collection(
+        db,
+        "rider_transactions"
+      ),
+
+      where(
+        "riderId",
+        "==",
+        riderId
+      )
+
+    );
+
+
+    const snap =
+    await getDocs(q);
+
+
+    const transactions =
+    snap.docs
+
+    .map(
+
+      item => ({
+        id:item.id,
+        ...item.data()
+      })
+
+    )
+
+    .sort(
+
+      (a,b) =>
+      timestampMs(b.createdAt)
+      -
+      timestampMs(a.createdAt)
+
+    )
+
+    .slice(0,10);
+
+
+    $("transactionList")
+    .innerHTML =
+
+    transactions.length
+
+    ?
+
+    transactions
+    .map(
+
+      transaction => `
+
+      <div class="order-card">
+
+        <div class="order-top">
+
+          <b>
+            ${escapeHtml(
+              transaction.type
+              ||
+              "Transaction"
+            )}
+          </b>
+
+          <b>
+            ৳${money(
+              transaction.amount
+            )}
+          </b>
+
+        </div>
+
+
+        <div class="muted small">
+
+          ${escapeHtml(
+            transaction.description
+            ||
+            ""
+          )}
+
+          •
+
+          ${escapeHtml(
+            transaction.status
+            ||
+            ""
+          )}
+
+          •
+
+          ${dateText(
+            transaction.createdAt
+          )}
+
+        </div>
+
+      </div>
+
+      `
+
+    )
+
+    .join("")
+
+    :
+
+    `
+    <div class="empty">
+      No transactions yet.
+    </div>
+    `;
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    $("transactionList")
+    .innerHTML = `
+
+      <div class="empty">
+        Transaction data unavailable.
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+function startNotifications(){
+
+  if(
+    unsubscribeNotifications
+  ){
+
+    unsubscribeNotifications();
+
+  }
+
+
+  const q =
+  query(
+
+    collection(
+      db,
+      "rider_notifications"
+    ),
+
+    where(
+      "riderId",
+      "==",
+      riderId
+    )
+
+  );
+
+
+  unsubscribeNotifications =
+  onSnapshot(
+
+    q,
+
+    snap => {
+
+      const notifications =
+      snap.docs
+
+      .map(
+
+        item => ({
+
+          id:item.id,
+
+          ...item.data()
+
+        })
+
+      )
+
+      .sort(
+
+        (a,b) =>
+        timestampMs(b.createdAt)
+        -
+        timestampMs(a.createdAt)
+
+      );
+
+
+      $("notificationList")
+      .innerHTML =
+
+      notifications.length
+
+      ?
+
+      notifications
+      .map(
+
+        notification => `
+
+        <div
+          class="order-card"
+          style="
+          ${
+            notification.read
+            ?
+            "opacity:.65"
+            :
+            ""
+          }
+          "
+        >
+
+          <div class="order-top">
+
+            <b>
+              ${escapeHtml(
+                notification.title
+                ||
+                "Notification"
+              )}
+            </b>
+
+
+            ${
+              notification.read
+
+              ?
+
+              ""
+
+              :
+
+              `
+              <span class="pill orange">
+                New
+              </span>
+              `
+
+            }
+
+          </div>
+
+
+          <p>
+
+            ${escapeHtml(
+              notification.message
+              ||
+              ""
+            )}
+
+          </p>
+
+
+          <div class="muted small">
+
+            ${escapeHtml(
+              notification.type
+              ||
+              "system"
+            )}
+
+            •
+
+            ${dateText(
+              notification.createdAt
+            )}
+
+          </div>
+
+
+          ${
+            notification.read
+
+            ?
+
+            ""
+
+            :
+
+            `
+
+            <div class="actions">
+
+              <button
+                class="btn secondary"
+                onclick="markRead('${escapeHtml(notification.id)}')"
+              >
+                Mark read
+              </button>
+
+            </div>
+
+            `
+
+          }
+
+        </div>
+
+        `
+
+      )
+
+      .join("")
+
+      :
+
+      `
+      <div class="empty">
+        No notifications.
+      </div>
+      `;
+
+    },
+
+    error => {
+
+      console.error(error);
+
+    }
+
+  );
+
+}
+
+
+/* =========================================================
+   MARK ONE READ
+   ========================================================= */
+
+async function markRead(id){
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "rider_notifications",
+        id
+      ),
+
+      {
+
+        read:true
+
+      }
+
+    );
+
+
+    toast(
+      "Marked as read"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      "Update failed"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   MARK ALL READ
+   ========================================================= */
+
+async function markAllRead(){
+
+  try{
+
+    const q =
+    query(
+
+      collection(
+        db,
+        "rider_notifications"
+      ),
+
+      where(
+        "riderId",
+        "==",
+        riderId
+      )
+
+    );
+
+
+    const snap =
+    await getDocs(q);
+
+
+    await Promise.all(
+
+      snap.docs
+
+      .filter(
+        item =>
+        !item.data().read
+      )
+
+      .map(
+
+        item =>
+        updateDoc(
+          item.ref,
+          {
+            read:true
+          }
+        )
+
+      )
+
+    );
+
+
+    toast(
+      "All notifications marked read"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      "Could not update notifications"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE PROFILE
+   ========================================================= */
+
+async function saveProfile(){
+
+  const name =
+  $("profileNameInput")
+  .value
+  .trim();
+
+
+  const vehicleType =
+  $("vehicleType")
+  .value;
+
+
+  const vehicleNumber =
+  $("vehicleNumber")
+  .value
+  .trim();
+
+
+  if(!name){
+
+    toast(
+      "Name দিন"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !riderId
+    ||
+    !currentFirebaseUser
+  ){
+
+    toast(
+      "Login required"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "riders",
+        riderId
+      ),
+
+      {
+
+        name,
+
+        vehicleType,
+
+        vehicleNumber,
+
+        updatedAt:
+        serverTimestamp()
+
+      }
+
+    );
+
+
+    riderData = {
+
+      ...riderData,
+
+      name,
+
+      vehicleType,
+
+      vehicleNumber
+
+    };
+
+
+    updateRiderUI();
+
+
+    toast(
+      "Profile updated"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      "Profile update failed: "
+      +
+      (
+        error.code
+        ||
+        "permission error"
+      )
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HANDOVER
+   ========================================================= */
+
+function openHandover(id){
+
+  alert(
+
+    "Handover submission এখানে প্রস্তুত রাখা হয়েছে।\n\n"
+
+    +
+
+    "Order: "
+    +
+    id
+
+    +
+
+    "\n\n"
+
+    +
+
+    "পরের ধাপে Firebase Storage + "
+    +
+
+    "rider_handover_proofs workflow "
+    +
+
+    "যুক্ত করা যাবে।"
+
+  );
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
+
+function showPage(id,button){
+
+  document
+  .querySelectorAll(".page")
+  .forEach(
+
+    page =>
+    page.classList.add("hidden")
+
+  );
+
+
+  const target =
+  $(id);
+
+
+  if(!target){
+
+    return;
+
+  }
+
+
+  target
+  .classList
+  .remove("hidden");
+
+
+  const titles = {
+
+    dashboard:
+    "Rider Dashboard",
+
+    deliveries:
+    "Assigned Deliveries",
+
+    detail:
+    "Delivery Details",
+
+    wallet:
+    "Wallet & Settlement",
+
+    history:
+    "Delivery History",
+
+    notifications:
+    "Notifications",
+
+    profile:
+    "Rider Profile"
+
+  };
+
+
+  $("pageTitle")
+  .textContent =
+  titles[id]
+  ||
+  "Rider Panel";
+
+
+  document
+  .querySelectorAll(
+    ".nav button,.mobilebar button"
+  )
+  .forEach(
+
+    btn =>
+    btn.classList.remove("active")
+
+  );
+
+
+  if(button){
+
+    button
+    .classList
+    .add("active");
+
+  }
+
+
+  if(
+    id === "history"
+  ){
+
+    renderHistory();
+
+  }
+
+
+  if(
+    id === "wallet"
+  ){
+
+    loadTransactions();
+
+  }
+
+}
+
+
+/* =========================================================
+   REFRESH ORDERS
+   ========================================================= */
+
+function refreshOrders(){
+
+  startOrders();
+
+  toast(
+    "Refreshing orders..."
+  );
+
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+window.login =
+async function(){
+
+  const phone =
+  $("loginPhone")
+  .value
+  .trim();
+
+
+  const password =
+  $("loginPass")
+  .value;
+
+
+  const normalized =
+  normalizeBangladeshPhone(
+    phone
+  );
+
+
+  if(!normalized){
+
+    toast(
+      "শুধু valid Bangladesh mobile number দিন"
+    );
+
+    return;
+
+  }
+
+
+  if(!password){
+
+    toast(
+      "Password দিন"
+    );
+
+    return;
+
+  }
+
+
+  const button =
+  $("loginBtn");
+
+
+  button.disabled =
+  true;
+
+
+  button.textContent =
+  "Logging in...";
+
+
+  try{
+
+    const emails =
+    riderAuthEmails(
+      phone
+    );
+
+
+    let lastError =
+    null;
+
+
+    let success =
+    false;
+
+
+    /*
+      First try:
+
+      rider.8801700000000
+      @rider.naturebite.app
+
+      If not found, try:
+
+      rider.8801700000000
+      @auth.naturebite.app
+    */
+
+
+    for(
+      const email
+      of emails
+    ){
+
+      try{
+
+        await signInWithEmailAndPassword(
+
+          auth,
+
+          email,
+
+          password
+
+        );
+
+
+        success =
+        true;
+
+
+        lastError =
+        null;
+
+
+        break;
+
+      }
+
+      catch(error){
+
+        lastError =
+        error;
+
+
+        if(
+
+          ![
+            "auth/user-not-found",
+
+            "auth/invalid-credential",
+
+            "auth/invalid-login-credentials"
+
+          ]
+
+          .includes(
+            error.code
+          )
+
+        ){
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    if(
+      !success
+      &&
+      lastError
+    ){
+
+      throw lastError;
+
+    }
+
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    toast(
+      errorText(
+        error.code
+      )
+    );
+
+  }
+
+  finally{
+
+    button.disabled =
+    false;
+
+    button.textContent =
+    "Login";
+
+  }
+
+};
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+window.logout =
+async function(){
+
+  try{
+
+    await signOut(
+      auth
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* =========================================================
+   FORGOT PASSWORD
+   ========================================================= */
+
+window.forgot =
+function(){
+
+  const phone =
+  $("loginPhone")
+  .value
+  .trim();
+
+
+  const valid =
+  normalizeBangladeshPhone(
+    phone
+  );
+
+
+  if(!valid){
+
+    toast(
+      "আগে valid Bangladesh mobile number দিন"
+    );
+
+    return;
+
+  }
+
+
+  toast(
+
+    "Password ভুলে গেলে Admin-এর মাধ্যমে Rider password reset করতে হবে।"
+
+  );
+
+};
+
+
+/* =========================================================
+   AUTH SESSION
+   ========================================================= */
+
+onAuthStateChanged(
+
+  auth,
+
+  async user => {
+
+    currentFirebaseUser =
+    user;
+
+
+    /*
+      User logout করলে
+      সব listener বন্ধ হবে।
+    */
+
+    if(!user){
+
+      if(
+        unsubscribeOrders
+      ){
+
+        unsubscribeOrders();
+
+        unsubscribeOrders =
+        null;
+
+      }
+
+
+      if(
+        unsubscribeNotifications
+      ){
+
+        unsubscribeNotifications();
+
+        unsubscribeNotifications =
+        null;
+
+      }
+
+
+      riderId =
+      null;
+
+
+      riderData =
+      {};
+
+
+      riderOrders =
+      [];
+
+
+      selectedOrderId =
+      null;
+
+
+      $("app")
+      .classList
+      .add("hidden");
+
+
+      $("login")
+      .classList
+      .remove("hidden");
+
+
+      return;
+
+    }
+
+
+    try{
+
+      /*
+        Firebase Auth UID
+        দিয়ে riders collection
+        থেকে Rider খোঁজা হচ্ছে।
+      */
+
+      const rider =
+      await findRider(
+        user.uid
+      );
+
+
+      if(!rider){
+
+        await signOut(
+          auth
+        );
+
+
+        toast(
+          "এই Firebase account-এর Rider profile পাওয়া যায়নি।"
+        );
+
+
+        return;
+
+      }
+
+
+      riderId =
+      rider.id;
+
+
+      const loaded =
+      await loadRiderProfile();
+
+
+      if(loaded){
+
+        toast(
+          "Login successful"
+        );
+
+      }
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      await signOut(
+        auth
+      );
+
+
+      toast(
+
+        "Rider account verification failed: "
+
+        +
+
+        (
+          error.code
+          ||
+          "unknown error"
+        )
+
+      );
+
+    }
+
+  }
+
+);
+
+
+/* =========================================================
+   GLOBAL FUNCTIONS FOR HTML BUTTONS
+   ========================================================= */
+
+window.showPage =
+showPage;
+
+
+window.openDetail =
+openDetail;
+
+
+window.advanceOrder =
+advanceOrder;
+
+
+window.failOrder =
+failOrder;
+
+
+window.markRead =
+markRead;
+
+
+window.markAllRead =
+markAllRead;
+
+
+window.saveProfile =
+saveProfile;
+
+
+window.refreshOrders =
+refreshOrders;
+
+
+window.openHandover =
+openHandover;
+
+
+window.renderHistory =
+renderHistory;
+
+
+</script>
+
+</body>
+</html>
