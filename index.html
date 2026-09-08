@@ -1,0 +1,3282 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#2E7D32">
+<title>NatureBite Rider</title>
+
+<style>
+:root{
+--green:#2E7D32;
+--sage:#A5C18E;
+--cream:#F5F2E8;
+--brown:#5D4037;
+--white:#fff;
+--text:#243026;
+--muted:#718071;
+--line:#e4e8df;
+--danger:#c62828;
+--warning:#ef8f00;
+--shadow:0 8px 28px rgba(45,72,45,.10);
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+background:#f7f8f4;
+color:var(--text)
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+#login{
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:20px;
+background:linear-gradient(135deg,var(--cream),#edf3e8)
+}
+
+.login-card{
+width:min(430px,100%);
+background:#fff;
+border-radius:26px;
+padding:28px;
+box-shadow:var(--shadow)
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:22px
+}
+
+.logo-mark{
+width:52px;
+height:52px;
+border-radius:16px;
+background:var(--green);
+color:#fff;
+display:grid;
+place-items:center;
+font-size:27px;
+font-weight:800
+}
+
+.logo h1{margin:0;font-size:24px}
+.logo p{margin:3px 0;color:var(--muted);font-size:13px}
+
+label{
+display:block;
+margin:15px 0 7px;
+font-size:13px;
+font-weight:700
+}
+
+input,select,textarea{
+width:100%;
+border:1px solid var(--line);
+border-radius:12px;
+padding:12px 13px;
+background:#fff;
+outline:none
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:var(--green);
+box-shadow:0 0 0 3px rgba(46,125,50,.08)
+}
+
+.btn{
+border:0;
+border-radius:12px;
+padding:12px 16px;
+font-weight:800
+}
+
+.primary{background:var(--green);color:#fff}
+.secondary{background:#eef4eb;color:var(--green)}
+.danger{background:#fdecec;color:var(--danger)}
+.full{width:100%}
+
+.small{font-size:12px}
+.muted{color:var(--muted)}
+
+.demo-note{
+margin-top:14px;
+padding:11px 12px;
+border-radius:12px;
+background:#fff8df;
+color:#765a00;
+font-size:12px;
+line-height:1.5
+}
+
+.error{
+margin-top:12px;
+padding:10px;
+border-radius:10px;
+background:#fdecec;
+color:#a62222;
+font-size:13px;
+display:none
+}
+
+#app{min-height:100vh}
+
+.shell{
+display:flex;
+min-height:100vh
+}
+
+.sidebar{
+width:245px;
+background:#173f20;
+color:#fff;
+padding:18px;
+position:fixed;
+left:0;
+top:0;
+bottom:0
+}
+
+.side-brand{
+font-weight:900;
+font-size:21px;
+padding:8px 8px 20px
+}
+
+.nav button{
+width:100%;
+text-align:left;
+border:0;
+background:transparent;
+color:#dbe9dc;
+padding:12px;
+border-radius:12px;
+margin:3px 0;
+font-weight:700
+}
+
+.nav button.active,
+.nav button:hover{
+background:rgba(255,255,255,.12);
+color:#fff
+}
+
+.main{
+margin-left:245px;
+width:calc(100% - 245px);
+padding:20px 24px 90px
+}
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+margin-bottom:20px
+}
+
+.topbar h2{
+margin:0;
+font-size:23px
+}
+
+.user{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:var(--sage);
+color:#214523;
+display:grid;
+place-items:center;
+font-weight:900
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px
+}
+
+.card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:18px;
+padding:17px;
+box-shadow:0 3px 15px rgba(0,0,0,.03)
+}
+
+.stat .num{
+font-size:26px;
+font-weight:900;
+margin-top:6px
+}
+
+.section{margin-top:18px}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:12px
+}
+
+.section-head h3{margin:0}
+
+.cards{
+display:grid;
+gap:12px
+}
+
+.order-card{
+border:1px solid var(--line);
+border-radius:16px;
+padding:15px;
+background:#fff
+}
+
+.order-top{
+display:flex;
+justify-content:space-between;
+gap:10px
+}
+
+.order-title{font-weight:900}
+
+.pill{
+display:inline-block;
+border-radius:999px;
+padding:5px 9px;
+font-size:11px;
+font-weight:800;
+background:#eef2ee
+}
+
+.pill.green{
+background:#e4f2e5;
+color:#256329
+}
+
+.pill.orange{
+background:#fff0d8;
+color:#915c00
+}
+
+.pill.red{
+background:#fde8e8;
+color:#a62222
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+gap:12px;
+padding:9px 0;
+border-bottom:1px solid #f0f2ee
+}
+
+.row:last-child{border-bottom:0}
+
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:14px
+}
+
+.empty{
+padding:28px;
+text-align:center;
+color:var(--muted);
+border:1px dashed #ccd5c8;
+border-radius:14px
+}
+
+table{
+width:100%;
+border-collapse:collapse
+}
+
+th,td{
+text-align:left;
+padding:11px 8px;
+border-bottom:1px solid var(--line);
+font-size:13px
+}
+
+.detail-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px
+}
+
+.map-btn{
+display:inline-block;
+text-decoration:none;
+background:#edf4ed;
+color:var(--green);
+padding:10px 12px;
+border-radius:10px;
+font-weight:800
+}
+
+.money-row{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid var(--line)
+}
+
+.timeline{
+border-left:3px solid var(--sage);
+padding-left:16px;
+margin:10px 0
+}
+
+.timeline-item{
+margin:0 0 15px;
+position:relative
+}
+
+.timeline-item:before{
+content:"";
+position:absolute;
+left:-24px;
+top:4px;
+width:9px;
+height:9px;
+background:var(--green);
+border-radius:50%
+}
+
+.toast{
+position:fixed;
+right:18px;
+bottom:20px;
+background:#173f20;
+color:#fff;
+padding:12px 16px;
+border-radius:12px;
+box-shadow:var(--shadow);
+z-index:99;
+opacity:0;
+transform:translateY(10px);
+transition:.25s;
+max-width:360px
+}
+
+.toast.show{
+opacity:1;
+transform:translateY(0)
+}
+
+.mobilebar{display:none}
+
+.status-actions .btn{min-width:180px}
+
+hr{
+border:0;
+border-top:1px solid var(--line);
+margin:18px 0
+}
+
+@media(max-width:900px){
+
+.sidebar{display:none}
+
+.main{
+margin:0;
+width:100%;
+padding:15px 15px 90px
+}
+
+.grid{
+grid-template-columns:repeat(2,1fr)
+}
+
+.detail-grid{
+grid-template-columns:1fr
+}
+
+.mobilebar{
+position:fixed;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+left:0;
+right:0;
+bottom:0;
+background:#fff;
+border-top:1px solid var(--line);
+z-index:50;
+padding:6px 3px
+}
+
+.mobilebar button{
+border:0;
+background:#fff;
+color:#667166;
+font-size:11px;
+padding:7px 2px
+}
+
+.mobilebar button.active{
+color:var(--green);
+font-weight:900
+}
+
+.topbar{
+position:sticky;
+top:0;
+background:#f7f8f4;
+padding:6px 0;
+z-index:10
+}
+}
+
+@media(max-width:520px){
+
+.grid{
+grid-template-columns:1fr 1fr
+}
+
+.stat .num{
+font-size:21px
+}
+
+.topbar h2{
+font-size:19px
+}
+
+.login-card{
+padding:22px
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login">
+
+<div class="login-card">
+
+<div class="logo">
+
+<div class="logo-mark">N</div>
+
+<div>
+<h1>NatureBite Rider</h1>
+<p>Personal Parcel Delivery</p>
+</div>
+
+</div>
+
+<label>Bangladesh Mobile Number</label>
+
+<input
+id="loginPhone"
+inputmode="numeric"
+maxlength="11"
+placeholder="01XXXXXXXXX"
+autocomplete="tel"
+>
+
+<label>Password</label>
+
+<input
+id="loginPass"
+type="password"
+placeholder="Password"
+autocomplete="current-password"
+>
+
+<button
+class="btn primary full"
+style="margin-top:18px"
+onclick="login()"
+>
+Login
+</button>
+
+<button
+class="btn secondary full"
+style="margin-top:8px"
+onclick="forgot()"
+>
+Forgot Password
+</button>
+
+<div id="loginError" class="error"></div>
+
+<div class="demo-note">
+Rider account Firebase Authentication দিয়ে নিরাপদভাবে Login করবে।
+Password Firestore-এ রাখা হবে না।
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<section id="app" class="hidden">
+
+<div class="shell">
+
+<aside class="sidebar">
+
+<div class="side-brand">
+🌿 NatureBite<br>
+<span style="font-size:12px;font-weight:500;color:#b8cfba">
+Rider Panel
+</span>
+</div>
+
+<div class="nav">
+
+<button class="active"
+onclick="showPage('dashboard',this)">
+🏠 Dashboard
+</button>
+
+<button onclick="showPage('deliveries',this)">
+📦 Deliveries
+</button>
+
+<button onclick="showPage('wallet',this)">
+💰 Wallet
+</button>
+
+<button onclick="showPage('history',this)">
+🕘 History
+</button>
+
+<button onclick="showPage('notifications',this)">
+🔔 Notifications
+</button>
+
+<button onclick="showPage('profile',this)">
+👤 Profile
+</button>
+
+<button onclick="logout()">
+↩ Logout
+</button>
+
+</div>
+
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+<h2 id="pageTitle">
+Rider Dashboard
+</h2>
+
+<div class="user">
+
+<div>
+<b id="topName">Rider</b>
+
+<div
+class="muted small"
+id="topId"
+>
+Rider ID: —
+</div>
+
+</div>
+
+<div
+class="avatar"
+id="topAvatar"
+>
+R
+</div>
+
+</div>
+
+</header>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+<div class="grid">
+
+<div class="card stat">
+<div class="muted">Active Deliveries</div>
+<div class="num" id="statActive">0</div>
+</div>
+
+<div class="card stat">
+<div class="muted">Out for Delivery</div>
+<div class="num" id="statOut">0</div>
+</div>
+
+<div class="card stat">
+<div class="muted">Total Earnings</div>
+<div class="num" id="statEarn">৳0</div>
+</div>
+
+<div class="card stat">
+<div class="muted">COD Amount</div>
+<div class="num" id="statCod">৳0</div>
+</div>
+
+</div>
+
+
+<div class="section card">
+
+<div class="section-head">
+
+<h3>Today's Deliveries</h3>
+
+<button
+class="btn secondary"
+onclick="showPage('deliveries')"
+>
+View all
+</button>
+
+</div>
+
+<div
+id="dashboardOrders"
+class="cards"
+></div>
+
+</div>
+
+
+<div class="section card">
+
+<h3>Quick Summary</h3>
+
+<div class="money-row">
+<span>Current Balance</span>
+<b id="sumBalance">৳0</b>
+</div>
+
+<div class="money-row">
+<span>Pending Settlement</span>
+<b id="sumPending">৳0</b>
+</div>
+
+<div class="money-row">
+<span>Delivered Orders</span>
+<b id="sumDelivered">0</b>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DELIVERIES -->
+
+<section
+id="deliveries"
+class="page hidden"
+>
+
+<div class="card">
+
+<div class="section-head">
+
+<h3>Assigned Deliveries</h3>
+
+<button
+class="btn secondary"
+onclick="refreshOrders()"
+>
+Refresh
+</button>
+
+</div>
+
+<div
+id="deliveryList"
+class="cards"
+></div>
+
+</div>
+
+</section>
+
+
+<!-- DETAIL -->
+
+<section
+id="detail"
+class="page hidden"
+>
+
+<div class="section-head">
+
+<button
+class="btn secondary"
+onclick="showPage('deliveries')"
+>
+← Back
+</button>
+
+</div>
+
+<div id="detailContent"></div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section
+id="wallet"
+class="page hidden"
+>
+
+<div class="grid">
+
+<div class="card stat">
+<div class="muted">Current Balance</div>
+<div class="num" id="wBalance">৳0</div>
+</div>
+
+<div class="card stat">
+<div class="muted">COD Collected</div>
+<div class="num" id="wCod">৳0</div>
+</div>
+
+<div class="card stat">
+<div class="muted">Pending Settlement</div>
+<div class="num" id="wPending">৳0</div>
+</div>
+
+<div class="card stat">
+<div class="muted">Total Earnings</div>
+<div class="num" id="wEarn">৳0</div>
+</div>
+
+</div>
+
+
+<div class="section card">
+
+<h3>Settlement</h3>
+
+<div class="money-row">
+<span>Approved Settlement</span>
+<b id="wApproved">৳0</b>
+</div>
+
+<div class="money-row">
+<span>Paid/Transferred</span>
+<b id="wPaid">৳0</b>
+</div>
+
+<div class="money-row">
+<span>Salary Pending</span>
+<b id="wSalaryPending">৳0</b>
+</div>
+
+</div>
+
+
+<div class="section card">
+
+<h3>Recent Transactions</h3>
+
+<div
+id="transactionList"
+class="cards"
+></div>
+
+</div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section
+id="history"
+class="page hidden"
+>
+
+<div class="card">
+
+<div class="section-head">
+
+<h3>Delivery History</h3>
+
+<select
+id="historyFilter"
+onchange="renderHistory()"
+style="width:auto"
+>
+
+<option>All</option>
+<option>Delivered</option>
+<option>Failed</option>
+<option>Cancelled</option>
+
+</select>
+
+</div>
+
+<div style="overflow:auto">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Order</th>
+<th>Status</th>
+<th>COD</th>
+<th>Date</th>
+</tr>
+
+</thead>
+
+<tbody id="historyBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTIFICATIONS -->
+
+<section
+id="notifications"
+class="page hidden"
+>
+
+<div class="card">
+
+<div class="section-head">
+
+<h3>Notifications</h3>
+
+<button
+class="btn secondary"
+onclick="markAllRead()"
+>
+Mark all read
+</button>
+
+</div>
+
+<div
+id="notificationList"
+class="cards"
+></div>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section
+id="profile"
+class="page hidden"
+>
+
+<div class="card">
+
+<div
+style="display:flex;align-items:center;gap:15px"
+>
+
+<div
+class="avatar"
+id="profileAvatar"
+style="width:65px;height:65px"
+>
+R
+</div>
+
+<div>
+
+<h3 id="profileName">Rider</h3>
+
+<div
+class="muted"
+id="profileId"
+>
+Rider ID: —
+</div>
+
+</div>
+
+</div>
+
+
+<label>Name</label>
+
+<input
+id="profileNameInput"
+placeholder="Rider name"
+>
+
+
+<label>Phone</label>
+
+<input
+id="profilePhone"
+readonly
+>
+
+
+<label>Vehicle Type</label>
+
+<select id="vehicleType">
+
+<option>Bike</option>
+<option>Motorcycle</option>
+<option>Cycle</option>
+<option>Car</option>
+
+</select>
+
+
+<label>Vehicle Number</label>
+
+<input
+id="vehicleNumber"
+placeholder="Vehicle number"
+>
+
+
+<button
+class="btn primary full"
+style="margin-top:15px"
+onclick="saveProfile()"
+>
+Save Changes
+</button>
+
+<hr>
+
+<div class="muted small">
+Profile changes Firebase Security Rules দ্বারা নিয়ন্ত্রিত হবে।
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- MOBILE NAV -->
+
+<div class="mobilebar">
+
+<button
+class="active"
+onclick="showPage('dashboard',this)"
+>
+🏠<br>Home
+</button>
+
+<button
+onclick="showPage('deliveries',this)"
+>
+📦<br>Deliveries
+</button>
+
+<button
+onclick="showPage('wallet',this)"
+>
+💰<br>Wallet
+</button>
+
+<button
+onclick="showPage('notifications',this)"
+>
+🔔<br>Alerts
+</button>
+
+<button
+onclick="showPage('profile',this)"
+>
+👤<br>Profile
+</button>
+
+</div>
+
+</section>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+getFirestore,
+doc,
+getDoc,
+collection,
+query,
+where,
+onSnapshot,
+updateDoc,
+serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut,
+sendPasswordResetEmail
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+const firebaseConfig={
+
+apiKey:
+"AIzaSyAlrkdWd2UMGAp3yZkp0tlhxxXWSCjSvg",
+
+authDomain:
+"naturebite-bcdad.firebaseapp.com",
+
+projectId:
+"naturebite-bcdad",
+
+storageBucket:
+"naturebite-bcdad.firebasestorage.app",
+
+messagingSenderId:
+"860834516769",
+
+appId:
+"1:860834516769:web:5c2fa96a1de26e337a3860"
+
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const db=getFirestore(app);
+
+const auth=getAuth(app);
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let riderId=null;
+
+let riderData={};
+
+let riderOrders=[];
+
+let selectedOrderId=null;
+
+let unsubscribeOrders=null;
+
+let unsubscribeNotifications=null;
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+const $=id=>
+document.getElementById(id);
+
+
+function money(v){
+
+return Number(v||0)
+.toLocaleString("en-BD");
+
+}
+
+
+function escapeHtml(v){
+
+return String(v??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function toast(msg){
+
+const t=$("toast");
+
+t.textContent=msg;
+
+t.classList.add("show");
+
+clearTimeout(window._toast);
+
+window._toast=setTimeout(
+()=>{
+t.classList.remove("show")
+},
+2800
+);
+
+}
+
+
+function showLoginError(msg){
+
+const box=$("loginError");
+
+box.textContent=msg;
+
+box.style.display="block";
+
+}
+
+
+function clearLoginError(){
+
+const box=$("loginError");
+
+box.textContent="";
+
+box.style.display="none";
+
+}
+
+
+function initials(name){
+
+return String(name||"Rider")
+.split(/\s+/)
+.map(x=>x[0])
+.join("")
+.slice(0,2)
+.toUpperCase();
+
+}
+
+
+function timestampMs(t){
+
+if(!t)return 0;
+
+if(typeof t.toMillis==="function")
+return t.toMillis();
+
+if(t.seconds)
+return t.seconds*1000;
+
+const x=new Date(t).getTime();
+
+return isNaN(x)?0:x;
+
+}
+
+
+function dateText(t){
+
+const ms=timestampMs(t);
+
+return ms?
+new Date(ms).toLocaleString("en-BD"):
+"—";
+
+}
+
+
+/* =====================================================
+   BANGLADESH PHONE
+===================================================== */
+
+function normalizeBangladeshPhone(value){
+
+let phone=
+String(value||"")
+.trim()
+.replace(/[\s-]/g,"");
+
+
+if(/^01\d{9}$/.test(phone))
+return "+88"+phone;
+
+
+if(/^8801\d{9}$/.test(phone))
+return "+"+phone;
+
+
+if(/^\+8801\d{9}$/.test(phone))
+return phone;
+
+
+return null;
+
+}
+
+
+/*
+ Firebase Email/Password needs an email.
+ Rider never sees this internal email.
+*/
+
+function riderAuthEmail(phone){
+
+const normalized=
+normalizeBangladeshPhone(phone);
+
+if(!normalized)
+return null;
+
+const digits=
+normalized.replace(/\D/g,"");
+
+return "rider."+digits+"@auth.naturebite.app";
+
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(auth,async(user)=>{
+
+if(!user){
+
+showLoginScreen();
+
+return;
+
+}
+
+try{
+
+await loadRiderFromAuth(user);
+
+}catch(e){
+
+console.error(e);
+
+await signOut(auth);
+
+showLoginScreen();
+
+showLoginError(
+"Rider account configuration পাওয়া যায়নি। Admin-এর সাথে যোগাযোগ করুন।"
+);
+
+}
+
+});
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+window.login=async function(){
+
+clearLoginError();
+
+const phone=
+$("loginPhone").value.trim();
+
+const password=
+$("loginPass").value;
+
+
+if(!/^01\d{9}$/.test(phone)){
+
+showLoginError(
+"সঠিক Bangladesh mobile number দিন।"
+);
+
+return;
+
+}
+
+
+if(!password){
+
+showLoginError(
+"Password দিন।"
+);
+
+return;
+
+}
+
+
+const email=
+riderAuthEmail(phone);
+
+
+if(!email){
+
+showLoginError(
+"Mobile number invalid।"
+);
+
+return;
+
+}
+
+
+const btn=
+document.querySelector("#login .primary");
+
+btn.disabled=true;
+
+btn.textContent="Logging in...";
+
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+}catch(error){
+
+console.error(error);
+
+let message=
+"Login failed। Mobile number বা password ভুল।";
+
+
+if(
+error.code==="auth/user-disabled"
+){
+
+message=
+"এই Rider account বর্তমানে inactive।";
+
+}
+
+
+if(
+error.code==="auth/too-many-requests"
+){
+
+message=
+"অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।";
+
+}
+
+
+showLoginError(message);
+
+}finally{
+
+btn.disabled=false;
+
+btn.textContent="Login";
+
+}
+
+};
+
+
+/* =====================================================
+   LOAD RIDER FROM AUTH UID
+===================================================== */
+
+async function loadRiderFromAuth(user){
+
+const q=query(
+collection(db,"riders"),
+where("authUid","==",user.uid)
+);
+
+
+const snap=
+await new Promise((resolve,reject)=>{
+
+const unsub=
+onSnapshot(
+q,
+snapshot=>{
+unsub();
+resolve(snapshot);
+},
+reject
+);
+
+});
+
+
+if(snap.empty){
+
+throw new Error(
+"Rider profile not linked with Auth UID"
+);
+
+}
+
+
+const riderDoc=
+snap.docs[0];
+
+riderId=
+riderDoc.id;
+
+riderData={
+...riderDoc.data()
+};
+
+
+if(
+riderData.riderStatus &&
+riderData.riderStatus!=="active"
+){
+
+await signOut(auth);
+
+showLoginScreen();
+
+showLoginError(
+"এই Rider account active নয়।"
+);
+
+return;
+
+}
+
+
+showAppScreen();
+
+updateRiderUI();
+
+updateWalletUI();
+
+startOrdersListener();
+
+startNotificationsListener();
+
+loadTransactions();
+
+toast(
+"Rider account loaded"
+);
+
+}
+
+
+/* =====================================================
+   UI LOGIN / APP
+===================================================== */
+
+function showLoginScreen(){
+
+$("login").classList.remove("hidden");
+
+$("app").classList.add("hidden");
+
+}
+
+
+function showAppScreen(){
+
+$("login").classList.add("hidden");
+
+$("app").classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   RIDER UI
+===================================================== */
+
+function updateRiderUI(){
+
+const name=
+riderData.name||"Rider";
+
+const phone=
+riderData.phone||"—";
+
+const id=
+riderData.riderId||riderId;
+
+
+$("topName").textContent=name;
+
+$("topId").textContent=
+"Rider ID: "+id;
+
+$("topAvatar").textContent=
+initials(name);
+
+
+$("profileName").textContent=name;
+
+$("profileId").textContent=
+"Rider ID: "+id;
+
+$("profileAvatar").textContent=
+initials(name);
+
+
+$("profileNameInput").value=name;
+
+$("profilePhone").value=phone;
+
+$("vehicleType").value=
+riderData.vehicleType||"Bike";
+
+$("vehicleNumber").value=
+riderData.vehicleNumber||"";
+
+}
+
+
+/* =====================================================
+   WALLET
+===================================================== */
+
+function updateWalletUI(){
+
+$("wBalance").textContent=
+"৳"+money(riderData.currentBalance);
+
+$("wCod").textContent=
+"৳"+money(riderData.codCollected);
+
+$("wPending").textContent=
+"৳"+money(riderData.pendingSettlement);
+
+$("wEarn").textContent=
+"৳"+money(riderData.totalEarnings);
+
+$("wApproved").textContent=
+"৳"+money(riderData.approvedSettlement);
+
+$("wPaid").textContent=
+"৳"+money(riderData.paidSettlement);
+
+$("wSalaryPending").textContent=
+"৳"+money(riderData.salaryPending);
+
+
+$("sumBalance").textContent=
+"৳"+money(riderData.currentBalance);
+
+$("sumPending").textContent=
+"৳"+money(riderData.pendingSettlement);
+
+}
+
+
+/* =====================================================
+   NORMALIZE ORDER
+===================================================== */
+
+function normalizeOrder(id,d){
+
+return {
+
+id,
+
+status:d.status||"Assigned",
+
+parcel:
+d.parcelDescription||
+d.parcel||
+"Parcel",
+
+qty:
+Number(
+d.parcelQuantity||
+d.qty||
+1
+),
+
+charge:
+Number(
+d.deliveryCharge||
+d.charge||
+0
+),
+
+cod:
+Number(
+d.codAmount||
+d.cod||
+0
+),
+
+pickup:
+d.pickupAddress||
+d.pickup||
+"Pickup address not available",
+
+delivery:
+d.deliveryAddress||
+d.delivery||
+"Delivery address not available",
+
+customer:
+d.customerName||
+d.customer||
+"Customer",
+
+phone:
+d.customerContact||
+d.phone||
+"",
+
+pickupLat:
+Number(
+d.pickupLatitude??
+d.pickupLat??
+0
+),
+
+pickupLng:
+Number(
+d.pickupLongitude??
+d.pickupLng??
+0
+),
+
+deliveryLat:
+Number(
+d.deliveryLatitude??
+d.deliveryLat??
+0
+),
+
+deliveryLng:
+Number(
+d.deliveryLongitude??
+d.deliveryLng??
+0
+),
+
+riderEarning:
+Number(d.riderEarning||0),
+
+zoneId:
+d.zoneId||"",
+
+createdAt:d.createdAt,
+
+updatedAt:d.updatedAt,
+
+acceptedAt:d.acceptedAt,
+
+arrivedAt:d.arrivedAt,
+
+pickedUpAt:d.pickedUpAt,
+
+outForDeliveryAt:
+d.outForDeliveryAt,
+
+deliveredAt:d.deliveredAt,
+
+failedAt:d.failedAt,
+
+cancelledAt:d.cancelledAt,
+
+failureReason:
+d.failureReason||"",
+
+cancellationReason:
+d.cancellationReason||"",
+
+deliveryProofUrl:
+d.deliveryProofUrl||""
+
+};
+
+}
+
+
+/* =====================================================
+   ORDERS LISTENER
+===================================================== */
+
+function startOrdersListener(){
+
+if(unsubscribeOrders)
+unsubscribeOrders();
+
+
+if(!riderId)
+return;
+
+
+const q=query(
+collection(db,"rider_orders"),
+where("riderId","==",riderId)
+);
+
+
+unsubscribeOrders=
+onSnapshot(
+q,
+snap=>{
+
+riderOrders=
+snap.docs.map(
+s=>normalizeOrder(
+s.id,
+s.data()
+)
+);
+
+
+riderOrders.sort(
+(a,b)=>
+timestampMs(b.updatedAt)-
+timestampMs(a.updatedAt)
+);
+
+
+renderOrders();
+
+renderHistory();
+
+updateDashboardStats();
+
+},
+err=>{
+
+console.error(err);
+
+toast(
+"Orders load failed"
+);
+
+}
+
+);
+
+}
+
+
+/* =====================================================
+   ORDER UI
+===================================================== */
+
+function statusClass(s){
+
+if(s==="Delivered")
+return "green";
+
+if(
+["Failed","Cancelled"]
+.includes(s)
+)
+return "red";
+
+if(s==="Out for Delivery")
+return "orange";
+
+return "";
+
+}
+
+
+function isClosed(s){
+
+return [
+"Delivered",
+"Failed",
+"Cancelled"
+].includes(s);
+
+}
+
+
+function orderCard(o){
+
+return `
+
+<div class="order-card">
+
+<div class="order-top">
+
+<div>
+
+<div class="order-title">
+${escapeHtml(o.id)}
+</div>
+
+<div class="muted small">
+${escapeHtml(o.parcel)} × ${o.qty}
+</div>
+
+</div>
+
+<span class="pill ${statusClass(o.status)}">
+${escapeHtml(o.status)}
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span>Pickup</span>
+
+<b>
+${escapeHtml(o.pickup)}
+</b>
+
+</div>
+
+
+<div class="row">
+
+<span>Delivery</span>
+
+<b>
+${escapeHtml(o.delivery)}
+</b>
+
+</div>
+
+
+<div class="row">
+
+<span>COD</span>
+
+<b>
+৳${money(o.cod)}
+</b>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn primary"
+onclick="openDetail('${escapeHtml(o.id)}')"
+>
+View Details
+</button>
+
+${
+!isClosed(o.status)
+?
+`
+<button
+class="btn secondary"
+onclick="advanceOrder('${escapeHtml(o.id)}')"
+>
+Next Status
+</button>
+`
+:""
+}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function renderOrders(){
+
+const cards=
+riderOrders.length
+?
+riderOrders.map(orderCard).join("")
+:
+`<div class="empty">
+কোনো delivery পাওয়া যায়নি।
+</div>`;
+
+
+$("dashboardOrders").innerHTML=cards;
+
+$("deliveryList").innerHTML=cards;
+
+}
+
+
+/* =====================================================
+   DASHBOARD STATS
+===================================================== */
+
+function updateDashboardStats(){
+
+const active=
+riderOrders.filter(
+o=>!isClosed(o.status)
+).length;
+
+
+const out=
+riderOrders.filter(
+o=>o.status==="Out for Delivery"
+).length;
+
+
+const delivered=
+riderOrders.filter(
+o=>o.status==="Delivered"
+).length;
+
+
+const cod=
+riderOrders.reduce(
+(s,o)=>s+Number(o.cod||0),
+0
+);
+
+
+$("statActive").textContent=active;
+
+$("statOut").textContent=out;
+
+$("statEarn").textContent=
+"৳"+money(riderData.totalEarnings);
+
+$("statCod").textContent=
+"৳"+money(cod);
+
+$("sumDelivered").textContent=
+delivered;
+
+}
+
+
+/* =====================================================
+   DETAIL
+===================================================== */
+
+function getOrder(id){
+
+return riderOrders.find(
+o=>o.id===id
+);
+
+}
+
+
+function openDetail(id){
+
+const o=getOrder(id);
+
+if(!o){
+
+toast("Delivery not found");
+
+return;
+
+}
+
+
+selectedOrderId=id;
+
+showPage("detail");
+
+
+const activeContact=
+!isClosed(o.status)&&o.phone;
+
+
+const nav=
+o.deliveryLat &&
+o.deliveryLng
+?
+`
+<a
+class="map-btn"
+target="_blank"
+href="https://www.google.com/maps/dir/?api=1&destination=${o.deliveryLat},${o.deliveryLng}"
+>
+🧭 Navigate
+</a>
+`
+:"";
+
+
+$("detailContent").innerHTML=`
+
+<div class="detail-grid">
+
+<div class="card">
+
+<h3>Delivery</h3>
+
+<div class="row">
+<span>Order</span>
+<b>${escapeHtml(o.id)}</b>
+</div>
+
+<div class="row">
+<span>Status</span>
+<b>${escapeHtml(o.status)}</b>
+</div>
+
+<div class="row">
+<span>Parcel</span>
+<b>${escapeHtml(o.parcel)}</b>
+</div>
+
+<div class="row">
+<span>Quantity</span>
+<b>${o.qty}</b>
+</div>
+
+<div class="row">
+<span>Delivery Charge</span>
+<b>৳${money(o.charge)}</b>
+</div>
+
+<div class="row">
+<span>COD</span>
+<b>৳${money(o.cod)}</b>
+</div>
+
+<div class="actions">
+
+${nav}
+
+${
+activeContact
+?
+`
+<a
+class="map-btn"
+href="tel:${escapeHtml(o.phone)}"
+>
+📞 Contact Customer
+</a>
+`
+:""
+}
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Pickup</h3>
+
+<p>
+${escapeHtml(o.pickup)}
+</p>
+
+
+<h3>Customer Delivery</h3>
+
+<p>
+${escapeHtml(o.delivery)}
+</p>
+
+<p class="muted">
+${escapeHtml(o.customer)}
+</p>
+
+
+${
+activeContact
+?
+`
+<p>
+<b>${escapeHtml(o.phone)}</b>
+</p>
+`
+:
+`
+<p class="muted">
+Customer contact is hidden after delivery is closed.
+</p>
+`
+}
+
+</div>
+
+</div>
+
+
+<div class="section card">
+
+<h3>Status Control</h3>
+
+<div class="muted small">
+Assigned → Accepted → Arrived at Pickup → Picked Up → Out for Delivery → Delivered
+</div>
+
+<div class="actions status-actions">
+
+${statusButton(o)}
+
+</div>
+
+</div>
+
+
+<div class="section card">
+
+<h3>Timeline</h3>
+
+${timeline(o)}
+
+</div>
+
+${
+o.status==="Cancelled"
+?
+`
+<div class="section card">
+
+<h3>Parcel Return / Handover</h3>
+
+<p>
+Cancelled parcel authorized company location-এ handover করতে হবে।
+</p>
+
+<button
+class="btn secondary"
+onclick="openHandover('${escapeHtml(o.id)}')"
+>
+Submit Handover Proof
+</button>
+
+</div>
+`
+:""
+}
+
+`;
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function nextStatus(s){
+
+return {
+
+Assigned:"Accepted",
+
+Accepted:"Arrived at Pickup",
+
+"Arrived at Pickup":
+"Picked Up",
+
+"Picked Up":
+"Out for Delivery",
+
+"Out for Delivery":
+"Delivered"
+
+}[s]||"";
+
+}
+
+
+function statusButton(o){
+
+if(isClosed(o.status)){
+
+return `
+<span class="pill ${statusClass(o.status)}">
+No further status action
+</span>
+`;
+
+}
+
+
+return `
+
+<button
+class="btn primary"
+onclick="advanceOrder('${escapeHtml(o.id)}')"
+>
+Update to:
+${escapeHtml(nextStatus(o.status))}
+</button>
+
+<button
+class="btn danger"
+onclick="failOrder('${escapeHtml(o.id)}')"
+>
+Mark Failed
+</button>
+
+`;
+
+}
+
+
+function timeline(o){
+
+const arr=[
+
+["Assigned",o.createdAt],
+
+["Accepted",o.acceptedAt],
+
+["Arrived at Pickup",o.arrivedAt],
+
+["Picked Up",o.pickedUpAt],
+
+["Out for Delivery",o.outForDeliveryAt],
+
+["Delivered",o.deliveredAt],
+
+["Failed",o.failedAt],
+
+["Cancelled",o.cancelledAt]
+
+];
+
+
+return `
+
+<div class="timeline">
+
+${
+arr
+.filter(x=>x[1])
+.map(
+x=>`
+
+<div class="timeline-item">
+
+<b>${x[0]}</b>
+
+<div class="muted small">
+${dateText(x[1])}
+</div>
+
+</div>
+
+`
+)
+.join("")
+||
+"<div class='muted'>No timeline timestamps yet.</div>"
+}
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   ADVANCE ORDER
+===================================================== */
+
+async function advanceOrder(id){
+
+const o=getOrder(id);
+
+if(!o)
+return;
+
+
+const ns=nextStatus(o.status);
+
+if(!ns){
+
+toast("No next status");
+
+return;
+
+}
+
+
+const allowed={
+
+Assigned:"Accepted",
+
+Accepted:"Arrived at Pickup",
+
+"Arrived at Pickup":
+"Picked Up",
+
+"Picked Up":
+"Out for Delivery",
+
+"Out for Delivery":
+"Delivered"
+
+};
+
+
+if(allowed[o.status]!==ns){
+
+toast("Invalid status sequence");
+
+return;
+
+}
+
+
+const field={
+
+Accepted:"acceptedAt",
+
+"Arrived at Pickup":
+"arrivedAt",
+
+"Picked Up":
+"pickedUpAt",
+
+"Out for Delivery":
+"outForDeliveryAt",
+
+Delivered:
+"deliveredAt"
+
+}[ns];
+
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"rider_orders",
+id
+),
+
+{
+
+status:ns,
+
+[field]:serverTimestamp(),
+
+updatedAt:serverTimestamp()
+
+}
+
+);
+
+
+toast(
+"Status updated: "+ns
+);
+
+
+if(selectedOrderId===id)
+openDetail(id);
+
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"Status update failed"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   FAILED
+===================================================== */
+
+async function failOrder(id){
+
+const o=getOrder(id);
+
+if(!o||isClosed(o.status))
+return;
+
+
+const reason=
+prompt(
+"Failure reason লিখুন:"
+);
+
+
+if(!reason)
+return;
+
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"rider_orders",
+id
+),
+
+{
+
+status:"Failed",
+
+failureReason:reason,
+
+failedAt:serverTimestamp(),
+
+updatedAt:serverTimestamp()
+
+}
+
+);
+
+
+toast(
+"Delivery marked Failed"
+);
+
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"Failed status update হয়নি"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function renderHistory(){
+
+const f=
+$("historyFilter").value;
+
+
+const rows=
+riderOrders
+.filter(
+o=>f==="All"||o.status===f
+)
+.map(
+o=>`
+
+<tr>
+
+<td>
+${escapeHtml(o.id)}
+</td>
+
+<td>
+
+<span class="pill ${statusClass(o.status)}">
+${escapeHtml(o.status)}
+</span>
+
+</td>
+
+<td>
+৳${money(o.cod)}
+</td>
+
+<td>
+${dateText(o.updatedAt||o.createdAt)}
+</td>
+
+</tr>
+
+`
+)
+.join("");
+
+
+$("historyBody").innerHTML=
+rows||
+`
+<tr>
+<td
+colspan="4"
+style="text-align:center;color:#718071"
+>
+No history
+</td>
+</tr>
+`;
+
+}
+
+
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
+async function loadTransactions(){
+
+if(!riderId)
+return;
+
+
+try{
+
+const q=query(
+
+collection(
+db,
+"rider_transactions"
+),
+
+where(
+"riderId",
+"==",
+riderId
+)
+
+);
+
+
+const snap=
+await new Promise(
+(resolve,reject)=>{
+
+const unsub=
+onSnapshot(
+q,
+s=>{
+unsub();
+resolve(s);
+},
+reject
+);
+
+}
+);
+
+
+const tx=
+snap.docs
+.map(
+s=>({
+id:s.id,
+...s.data()
+})
+)
+.sort(
+(a,b)=>
+timestampMs(b.createdAt)-
+timestampMs(a.createdAt)
+)
+.slice(0,10);
+
+
+$("transactionList").innerHTML=
+tx.length
+?
+tx.map(
+t=>`
+
+<div class="order-card">
+
+<div class="order-top">
+
+<b>
+${escapeHtml(t.type||"Transaction")}
+</b>
+
+<b>
+৳${money(t.amount)}
+</b>
+
+</div>
+
+<div class="muted small">
+
+${escapeHtml(t.description||"")}
+•
+${escapeHtml(t.status||"")}
+•
+${dateText(t.createdAt)}
+
+</div>
+
+</div>
+
+`
+)
+.join("")
+:
+`
+<div class="empty">
+No transactions yet.
+</div>
+`;
+
+}catch(e){
+
+console.error(e);
+
+$("transactionList").innerHTML=
+`
+<div class="empty">
+Transaction data unavailable.
+</div>
+`;
+
+}
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function startNotificationsListener(){
+
+if(unsubscribeNotifications)
+unsubscribeNotifications();
+
+
+if(!riderId)
+return;
+
+
+const q=query(
+
+collection(
+db,
+"rider_notifications"
+),
+
+where(
+"riderId",
+"==",
+riderId
+)
+
+);
+
+
+unsubscribeNotifications=
+onSnapshot(
+
+q,
+
+snap=>{
+
+const arr=
+snap.docs
+.map(
+s=>({
+id:s.id,
+...s.data()
+})
+)
+.sort(
+(a,b)=>
+timestampMs(b.createdAt)-
+timestampMs(a.createdAt)
+);
+
+
+$("notificationList").innerHTML=
+
+arr.length
+?
+
+arr.map(
+n=>`
+
+<div
+class="order-card"
+style="${n.read?"opacity:.65":""}"
+>
+
+<div class="order-top">
+
+<b>
+${escapeHtml(
+n.title||"Notification"
+)}
+</b>
+
+${
+n.read
+?
+""
+:
+"<span class='pill orange'>New</span>"
+}
+
+</div>
+
+
+<p>
+${escapeHtml(n.message||"")}
+</p>
+
+
+<div class="muted small">
+
+${escapeHtml(n.type||"system")}
+•
+${dateText(n.createdAt)}
+
+</div>
+
+
+${
+!n.read
+?
+`
+<div class="actions">
+
+<button
+class="btn secondary"
+onclick="markRead('${escapeHtml(n.id)}')"
+>
+Mark read
+</button>
+
+</div>
+`
+:""
+}
+
+</div>
+
+`
+)
+.join("")
+
+:
+
+`
+<div class="empty">
+No notifications.
+</div>
+`;
+
+},
+
+err=>{
+
+console.error(err);
+
+}
+
+);
+
+}
+
+
+/* =====================================================
+   READ NOTIFICATIONS
+===================================================== */
+
+async function markRead(id){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"rider_notifications",
+id
+),
+
+{
+read:true
+}
+
+);
+
+toast("Marked as read");
+
+}catch(e){
+
+toast("Update failed");
+
+}
+
+}
+
+
+async function markAllRead(){
+
+try{
+
+const q=query(
+
+collection(
+db,
+"rider_notifications"
+),
+
+where(
+"riderId",
+"==",
+riderId
+)
+
+);
+
+
+const snap=
+await new Promise(
+(resolve,reject)=>{
+
+const unsub=
+onSnapshot(
+q,
+s=>{
+unsub();
+resolve(s);
+},
+reject
+);
+
+}
+);
+
+
+await Promise.all(
+
+snap.docs
+.filter(
+x=>!x.data().read
+)
+.map(
+x=>
+updateDoc(
+x.ref,
+{read:true}
+)
+)
+
+);
+
+
+toast(
+"All notifications marked read"
+);
+
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"Could not update notifications"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+async function saveProfile(){
+
+const name=
+$("profileNameInput")
+.value
+.trim();
+
+const vehicleType=
+$("vehicleType")
+.value;
+
+const vehicleNumber=
+$("vehicleNumber")
+.value
+.trim();
+
+
+if(!name){
+
+toast("Name দিন");
+
+return;
+
+}
+
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"riders",
+riderId
+),
+
+{
+
+name,
+
+vehicleType,
+
+vehicleNumber,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+
+riderData.name=name;
+
+riderData.vehicleType=vehicleType;
+
+riderData.vehicleNumber=vehicleNumber;
+
+updateRiderUI();
+
+toast(
+"Profile updated"
+);
+
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"Profile update failed"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   HANDOVER
+===================================================== */
+
+function openHandover(id){
+
+alert(
+"Cancelled parcel handover workflow প্রস্তুত। Photo upload-এর জন্য Firebase Storage/approved upload backend পরবর্তী ধাপে যুক্ত করা হবে।"
+);
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(id,btn){
+
+document
+.querySelectorAll(".page")
+.forEach(
+p=>{
+p.classList.add("hidden");
+p.classList.remove("active");
+}
+);
+
+
+$(id)
+.classList.remove("hidden");
+
+$(id)
+.classList.add("active");
+
+
+const titles={
+
+dashboard:
+"Rider Dashboard",
+
+deliveries:
+"Assigned Deliveries",
+
+detail:
+"Delivery Details",
+
+wallet:
+"Wallet & Settlement",
+
+history:
+"Delivery History",
+
+notifications:
+"Notifications",
+
+profile:
+"Rider Profile"
+
+};
+
+
+$("pageTitle").textContent=
+titles[id]||
+"Rider Panel";
+
+
+document
+.querySelectorAll(
+".nav button,.mobilebar button"
+)
+.forEach(
+b=>b.classList.remove("active")
+);
+
+
+if(btn)
+btn.classList.add("active");
+
+
+if(id==="history")
+renderHistory();
+
+
+if(id==="wallet")
+loadTransactions();
+
+}
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+function refreshOrders(){
+
+startOrdersListener();
+
+toast(
+"Refreshing orders..."
+);
+
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+window.forgot=async function(){
+
+clearLoginError();
+
+const phone=
+$("loginPhone").value.trim();
+
+
+if(!/^01\d{9}$/.test(phone)){
+
+showLoginError(
+"প্রথমে valid mobile number দিন।"
+);
+
+return;
+
+}
+
+
+const email=
+riderAuthEmail(phone);
+
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+email
+);
+
+
+toast(
+"Password reset link পাঠানো হয়েছে।"
+);
+
+
+}catch(e){
+
+console.error(e);
+
+showLoginError(
+"Password reset করা যাচ্ছে না। Admin-এর সাথে যোগাযোগ করুন।"
+);
+
+}
+
+};
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+window.logout=async function(){
+
+try{
+
+if(unsubscribeOrders){
+
+unsubscribeOrders();
+
+unsubscribeOrders=null;
+
+}
+
+
+if(unsubscribeNotifications){
+
+unsubscribeNotifications();
+
+unsubscribeNotifications=null;
+
+}
+
+
+await signOut(auth);
+
+riderOrders=[];
+
+selectedOrderId=null;
+
+riderId=null;
+
+riderData={};
+
+$("loginPass").value="";
+
+showLoginScreen();
+
+toast(
+"Logged out"
+);
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"Logout failed"
+);
+
+}
+
+};
+
+
+/* =====================================================
+   GLOBAL FUNCTIONS
+===================================================== */
+
+window.showPage=showPage;
+
+window.openDetail=openDetail;
+
+window.advanceOrder=advanceOrder;
+
+window.failOrder=failOrder;
+
+window.markRead=markRead;
+
+window.markAllRead=markAllRead;
+
+window.saveProfile=saveProfile;
+
+window.refreshOrders=refreshOrders;
+
+window.openHandover=openHandover;
+
+window.renderHistory=renderHistory;
+
+
+/* =====================================================
+   START
+===================================================== */
+
+window.addEventListener(
+"load",
+()=>{
+console.log(
+"NatureBite Rider Production Auth Ready"
+);
+}
+);
+
+</script>
+
+</body>
+</html>
